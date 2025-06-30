@@ -12,9 +12,9 @@
         <div id="area">
             <div id="menu">
                 <img id="icone" src="SnakesBite-removebg-preview.png" alt="">
-                <p>Start</p>
-                <p id="btnOptions" onClick="TelaOptions()">Options</p>
-                <p id="btnCredits" onclick="TelaCredits()">Credits</p>
+                <p id="btnGame" class="textoMenu" onclick="TelaGame()">Start</p>
+                <p id="btnOptions" class="textoMenu" onClick="TelaOptions()">Options</p>
+                <p id="btnCredits" class="textoMenu" onclick="TelaCredits()">Credits</p>
             </div>
             <div id="menuvao"></div>
         </div>
@@ -36,11 +36,22 @@
         <div id="Credits" style="display: none;" >
             <button id="voltarAOmenu" onClick="VMenu()"> < </button> 
             <h1>Colaboradores :</h1>
-            <p>Dayvson</p>
-            <p>Luhan</p>
-            <p>Alan</p>
-            <p>Luísa</p>
-            <p>Yuri</p>
+            <p class="colaboradores">Dayvson</p>
+            <p class="colaboradores">Luhan</p>
+            <p class="colaboradores">Alan</p>
+            <p class="colaboradores">Luísa</p>
+            <p class="colaboradores">Yuri</p>
+        </div>
+
+        <div id="TelaDoGame">
+            <div id="tela4">
+                <div style="display: flex;">
+                    <button id="Da4Para1" onClick='T4P1()'' >Back</button><p id="GameInfo">Score:7   |    Time: 00:20</p>
+                </div>
+                
+                <img id="matriz" src="gameplay.gif" alt="">
+                <p style="text-decoration:underline;">Restart</p>
+            </div>
         </div>
 
     </div>
@@ -49,6 +60,7 @@
     const menu = document.getElementById('area')
     const opcoes = document.getElementById('options')
     const credits = document.getElementById('Credits')
+    const game = document.getElementById('TelaDoGame')
 
     
     function TelaOptions (){
@@ -69,6 +81,16 @@
     function VMenu (){
         menu.style.display = 'flex';
         credits.style.display = 'none';
+    }
+
+    function TelaGame(){
+        menu.style.display = 'none';
+        game.style.display = 'flex';
+    }
+
+    function T4P1(){
+        game.style.display = 'none';
+        menu.style.display = 'flex';
     }
 </script>
 </body>
