@@ -13,12 +13,47 @@
             <div id="menu">
                 <img id="icone" src="SnakesBite-removebg-preview.png" alt="">
                 <p>Start</p>
-                <p>Options</p>
+                <p id="btnOptions" onClick="TelaOptions()">Options</p>
                 <p>Credits</p>
             </div>
             <div id="menuvao"></div>
         </div>
         
+        <div id="options" >
+            <button id="VoltarMenu" onClick="TelaMenu()"> < </button>
+            <h1>Opções :</h1>
+            <p>Volume</p>
+            <input type="range" min="0" max="100" value="50" id="VolumeSlider">
+            <p>Dificuldade</p>
+            <select id="Dificuldade">
+                <option value="Fácil">Fácil</option>
+                <option value="Médio">Médio</option>
+                <option value="Difícil">Difícil</option>
+            </select>
+            <button id="SalvarConfiguracao">Salvar</button>
+        </div>
+
+        <div id="creditos" >
+            <button id="VoltarMenu" onClick="TelaMenu()"> < </button> 
+            <h1>colaboradores :</h1>
+        </div>
+
     </div>
+    
+<script href="script.js">
+    const menu = document.getElementById('area')
+    const opcoes = document.getElementById('options')
+
+    
+    function TelaOptions (){
+        menu.style.display = 'none';
+        opcoes.style.display = 'block';
+    }
+
+    function TelaMenu (){
+        menu.style.display = 'flex';
+        opcoes.style.display = 'none';
+    }
+</script>
 </body>
 </html>

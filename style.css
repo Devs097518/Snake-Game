@@ -56,3 +56,15 @@ p:hover{
     border-right: 2px  black solid;
     border-bottom: 2px  black solid;
 }
+
+#options{
+    display: none;
+    margin-top: 7em;
+    border: 2px  black solid;
+    width: 30em;
+    height: 20em; 
+    background-color: aliceblue;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
