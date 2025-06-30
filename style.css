@@ -68,3 +68,14 @@ p:hover{
     flex-direction: column;
     justify-content: center;
 }
+
+#Credits{
+   display: none;
+    margin-top: 7em;
+    border: 2px  black solid;
+    width: 30em;
+    height: 22em; 
+    background-color: rgb(155, 166, 175);
+    align-items: center;
+    flex-direction: column;
+}

@@ -14,7 +14,7 @@
                 <img id="icone" src="SnakesBite-removebg-preview.png" alt="">
                 <p>Start</p>
                 <p id="btnOptions" onClick="TelaOptions()">Options</p>
-                <p>Credits</p>
+                <p id="btnCredits" onclick="TelaCredits()">Credits</p>
             </div>
             <div id="menuvao"></div>
         </div>
@@ -33,9 +33,14 @@
             <button id="SalvarConfiguracao">Salvar</button>
         </div>
 
-        <div id="creditos" >
-            <button id="VoltarMenu" onClick="TelaMenu()"> < </button> 
-            <h1>colaboradores :</h1>
+        <div id="Credits" style="display: none;" >
+            <button id="voltarAOmenu" onClick="VMenu()"> < </button> 
+            <h1>Colaboradores :</h1>
+            <p>Dayvson</p>
+            <p>Luhan</p>
+            <p>Alan</p>
+            <p>Luísa</p>
+            <p>Yuri</p>
         </div>
 
     </div>
@@ -43,6 +48,7 @@
 <script href="script.js">
     const menu = document.getElementById('area')
     const opcoes = document.getElementById('options')
+    const credits = document.getElementById('Credits')
 
     
     function TelaOptions (){
@@ -53,6 +59,16 @@
     function TelaMenu (){
         menu.style.display = 'flex';
         opcoes.style.display = 'none';
+    }
+
+    function TelaCredits (){
+        menu.style.display = 'none';
+        credits.style.display = 'flex';
+    }
+
+    function VMenu (){
+        menu.style.display = 'flex';
+        credits.style.display = 'none';
     }
 </script>
 </body>
