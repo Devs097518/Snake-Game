@@ -42,7 +42,7 @@
 
 
        <div id="Credits" style="display: none;" >
-           <!--<button id="voltarAOmenu" onClick="VMenu()"> < </button> -->
+        
            <div class="AreaDoBotao">
                <button class="VoltarMenu" onClick="VMenu()">
                    <img class="ImagemVoltar" src="botao-voltar.png" alt="">    
@@ -66,57 +66,13 @@
                <div style="display: flex;">
                    <button id="Da4Para1" onClick='T4P1()'' >Back</button><p id="GameInfo">Score:7   |    Time: 00:20</p>
                </div>
-              
                <img id="matriz" src="gameplay.gif" alt="">
                <p style="text-decoration:underline;">Restart</p>
            </div>
        </div>
 
-
    </div>
   
-<script href="script.js">
-   const menu = document.getElementById('area')
-   const opcoes = document.getElementById('options')
-   const credits = document.getElementById('Credits')
-   const game = document.getElementById('TelaDoGame')
-
-
-  
-   function TelaOptions (){
-       menu.style.display = 'none';
-       opcoes.style.display = 'block';
-   }
-
-
-   function TelaMenu (){
-       menu.style.display = 'flex';
-       opcoes.style.display = 'none';
-   }
-
-
-   function TelaCredits (){
-       menu.style.display = 'none';
-       credits.style.display = 'block';
-   }
-
-
-   function VMenu (){
-       menu.style.display = 'flex';
-       credits.style.display = 'none';
-   }
-
-
-   function TelaGame(){
-       menu.style.display = 'none';
-       game.style.display = 'flex';
-   }
-
-
-   function T4P1(){
-       game.style.display = 'none';
-       menu.style.display = 'flex';
-   }
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
