@@ -117,6 +117,14 @@ body{
    margin: 3px;
 }
 
+#imgIF {
+   position: absolute;
+   left: 450px; 
+   top: 350px;
+   bottom: 10px;
+   width: 70px; 
+   height: auto;
+}
 
 #TelaDoGame{
    display: none;
