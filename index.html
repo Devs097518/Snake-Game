@@ -1,97 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Snake's Bite</title>
+   <link rel="icon" href="SnakesBite-Logo.png">
+   <link rel="stylesheet" href="style.css">
+  
 </head>
+
+
 <body>
-    <div id="container">
-        <div id="area">
-            <div id="menu">
-                <img id="icone" src="SnakesBite-removebg-preview.png" alt="">
-                <p id="btnGame" class="textoMenu" onclick="TelaGame()">Start</p>
-                <p id="btnOptions" class="textoMenu" onClick="TelaOptions()">Options</p>
-                <p id="btnCredits" class="textoMenu" onclick="TelaCredits()">Credits</p>
-            </div>
-            <div id="menuvao"></div>
-        </div>
-        
-        <div id="options" >
-            <button id="VoltarMenu" onClick="TelaMenu()"> < </button>
-            <h1>Opções :</h1>
-            <p>Volume</p>
-            <input type="range" min="0" max="100" value="50" id="VolumeSlider">
-            <p>Dificuldade</p>
-            <select id="Dificuldade">
-                <option value="Fácil">Fácil</option>
-                <option value="Médio">Médio</option>
-                <option value="Difícil">Difícil</option>
-            </select>
-            <button id="SalvarConfiguracao">Salvar</button>
-        </div>
+   <div id="container">
+       <div id="area">
+           <div id="menu">
+               <img id="icone" src="SnakesBite-removebg-preview.png" alt="">
+               <p id="btnGame" class="textoMenu" onclick="TelaGame()">Start</p>
+               <p id="btnOptions" class="textoMenu" onClick="TelaOptions()">Options</p>
+               <p id="btnCredits" class="textoMenu" onclick="TelaCredits()">Credits</p>
+           </div>
+           <div id="menuvao"></div>
+       </div>
+      
+       <div id="options" >
+           <div class="AreaDoBotao">
+               <button class="VoltarMenu" onClick="TelaMenu()">
+                   <img class="ImagemVoltar" src="botao-voltar.png" alt="">    
+               </button>
+           </div>
+           <h1>Opções :</h1>
+           <p>Volume</p>
+           <input type="range" min="0" max="100" value="50" id="VolumeSlider">
+           <p>Dificuldade</p>
+           <select id="Dificuldade">
+               <option value="Fácil">Fácil</option>
+               <option value="Médio">Médio</option>
+               <option value="Difícil">Difícil</option>
+           </select>
+           <button id="SalvarConfiguracao">Salvar</button>
+       </div>
 
-        <div id="Credits" style="display: none;" >
-            <button id="voltarAOmenu" onClick="VMenu()"> < </button> 
-            <h1>Colaboradores :</h1>
-            <p class="colaboradores">Dayvson</p>
-            <p class="colaboradores">Luhan</p>
-            <p class="colaboradores">Alan</p>
-            <p class="colaboradores">Luísa</p>
-            <p class="colaboradores">Yuri</p>
-        </div>
 
-        <div id="TelaDoGame">
-            <div id="tela4">
-                <div style="display: flex;">
-                    <button id="Da4Para1" onClick='T4P1()'' >Back</button><p id="GameInfo">Score:7   |    Time: 00:20</p>
-                </div>
-                
-                <img id="matriz" src="gameplay.gif" alt="">
-                <p style="text-decoration:underline;">Restart</p>
-            </div>
-        </div>
+       <div id="Credits" style="display: none;" >
+           <!--<button id="voltarAOmenu" onClick="VMenu()"> < </button> -->
+           <div class="AreaDoBotao">
+               <button class="VoltarMenu" onClick="VMenu()">
+                   <img class="ImagemVoltar" src="botao-voltar.png" alt="">    
+               </button>
+           </div>
+              
+           <div style="flex-direction: column;">
+               <h1>Colaboradores :</h1>
+               <p class="colaboradores">Dayvson</p>
+               <p class="colaboradores">Luhan</p>
+               <p class="colaboradores">Alan</p>
+               <p class="colaboradores">Luísa</p>
+               <p class="colaboradores">Yuri</p>
+           </div>
+          
+       </div>
 
-    </div>
-    
+
+       <div id="TelaDoGame">
+           <div id="tela4">
+               <div style="display: flex;">
+                   <button id="Da4Para1" onClick='T4P1()'' >Back</button><p id="GameInfo">Score:7   |    Time: 00:20</p>
+               </div>
+              
+               <img id="matriz" src="gameplay.gif" alt="">
+               <p style="text-decoration:underline;">Restart</p>
+           </div>
+       </div>
+
+
+   </div>
+  
 <script href="script.js">
-    const menu = document.getElementById('area')
-    const opcoes = document.getElementById('options')
-    const credits = document.getElementById('Credits')
-    const game = document.getElementById('TelaDoGame')
+   const menu = document.getElementById('area')
+   const opcoes = document.getElementById('options')
+   const credits = document.getElementById('Credits')
+   const game = document.getElementById('TelaDoGame')
 
-    
-    function TelaOptions (){
-        menu.style.display = 'none';
-        opcoes.style.display = 'block';
-    }
 
-    function TelaMenu (){
-        menu.style.display = 'flex';
-        opcoes.style.display = 'none';
-    }
+  
+   function TelaOptions (){
+       menu.style.display = 'none';
+       opcoes.style.display = 'block';
+   }
 
-    function TelaCredits (){
-        menu.style.display = 'none';
-        credits.style.display = 'flex';
-    }
 
-    function VMenu (){
-        menu.style.display = 'flex';
-        credits.style.display = 'none';
-    }
+   function TelaMenu (){
+       menu.style.display = 'flex';
+       opcoes.style.display = 'none';
+   }
 
-    function TelaGame(){
-        menu.style.display = 'none';
-        game.style.display = 'flex';
-    }
 
-    function T4P1(){
-        game.style.display = 'none';
-        menu.style.display = 'flex';
-    }
+   function TelaCredits (){
+       menu.style.display = 'none';
+       credits.style.display = 'block';
+   }
+
+
+   function VMenu (){
+       menu.style.display = 'flex';
+       credits.style.display = 'none';
+   }
+
+
+   function TelaGame(){
+       menu.style.display = 'none';
+       game.style.display = 'flex';
+   }
+
+
+   function T4P1(){
+       game.style.display = 'none';
+       menu.style.display = 'flex';
+   }
 </script>
 </body>
 </html>

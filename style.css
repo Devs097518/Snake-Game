@@ -1,124 +1,156 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
+
 body{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    font-family: "MedievalSharp", cursive;
-    font-weight: 400;
-    font-style: normal;
-    background-image: url(bricks.jpg);
-    background-size: cover;
+   display: flex;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+   font-family: "MedievalSharp", cursive;
+   font-weight: 400;
+   font-style: normal;
+   background-image: url(bricks.jpg);
+   background-size: cover;
 }
+
 
 #area{
-    display: flex;
-    background-image: url(telainicial.jpg);
-    background-size: cover;
-    margin-top: 7em;
-
-    
+   display: flex;
+   background-image: url(telainicial.jpg);
+   background-size: cover;
+   margin-top: 7em;  
 }
+
 
 .textoMenu{
-    margin: 0;
-    font-size: 25px;
-    -webkit-text-fill-color: rgb(0, 0, 0);  
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
+   margin: 0;
+   font-size: 25px;
+   -webkit-text-fill-color: rgb(0, 0, 0); 
+   -webkit-text-stroke: 1px rgb(0, 0, 0);
+   cursor: pointer;
 }
 
+
 .textoMenu:hover{
-    margin: 0;
-    font-size: 27px;
-    -webkit-text-fill-color: rgb(255, 255, 255); 
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
+   margin: 0;
+   font-size: 27px;
+   -webkit-text-fill-color: rgb(255, 255, 255);
+   -webkit-text-stroke: 1px rgb(0, 0, 0);
 }
+
+
 
 
 #icone{
-    width: 200px;
+   width: 200px;
 }
+
 
 #menu{
-    border-top: 2px  black solid;
-    border-left: 2px  black solid;
-    border-bottom: 2px  black solid;
-    width: 15em;
-    height: 20em;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+   border-top: 2px  black solid;
+   border-left: 2px  black solid;
+   border-bottom: 2px  black solid;
+   width: 15em;
+   height: 20em;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
 }
+
 
 #menuvao{
-    width: 15em;
-    height: 20em;
-    border-top: 2px  black solid;
-    border-right: 2px  black solid;
-    border-bottom: 2px  black solid;
+   width: 15em;
+   height: 20em;
+   border-top: 2px  black solid;
+   border-right: 2px  black solid;
+   border-bottom: 2px  black solid;
 }
 
+
 #options{
-    display: none;
-    margin-top: 7em;
-    border: 2px  black solid;
-    width: 30em;
-    height: 20em; 
-    background-color: aliceblue;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+   display: none;
+   margin-top: 7em;
+   border: 2px  black solid;
+   width: 30em;
+   height: 20em;
+   background-color: aliceblue;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
+   }
+
+
+.AreaDoBotao {
+   text-align: start;
+   margin: 8px;
+}
+
+
+.VoltarMenu {
+   width: 50px;
+   background-color: rgba(240, 248, 255, 0);
+   border: 0;
+   cursor: pointer;
+}
+
+
+.ImagemVoltar {
+   width: 40px;
+   height: 40px;
 }
 
 
 #Credits{
-   display: none;
-    margin-top: 7em;
-    border: 1px  black solid;
-    width: 30em;
-    height: 20em; 
-    background-color: rgb(155, 166, 175);
-    align-items: center;
-    flex-direction: column;
+  display: none;
+   margin-top: 7em;
+   border: 1px  black solid;
+   width: 30em;
+   height: 20em;
+   background-color: rgb(155, 166, 175);
+   align-items: center;
 }
+
 
 .colaboradores{
-    font-size: 1.5em;
-    margin: 3px;
+   font-size: 1.5em;
+   margin: 3px;
 }
+
 
 #TelaDoGame{
-    display: none;
-    background-color: aliceblue;
-    background-size: cover;
-    margin-top: 7em;
+   display: none;
+   background-color: aliceblue;
+   background-size: cover;
+   margin-top: 7em;
 }
+
 
 #tela4{
-    border: 2px  black solid;
-    width: 30em;
-    height: 20em;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+   border: 2px  black solid;
+   width: 30em;
+   height: 20em;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
 }
+
 
 #matriz{
-    width: 20em;
-    height: auto;
+   width: 20em;
+   height: auto;
 }
+
 
 #Da4Para1{
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-    font-size: 1.5em;
-    text-decoration: underline;
+   background-color: rgba(0, 0, 0, 0);
+   border: none;
+   font-size: 1.5em;
+   text-decoration: underline;
 }
+
 
 #Da4Para1:hover{
-    color: red;
+   color: red;
 }
-
