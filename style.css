@@ -109,6 +109,7 @@ body{
    height: 20em;
    background-color: rgb(155, 166, 175);
    align-items: center;
+   position: relative; /* Linha adicionada em razão da imagem da IF nos créditos*/
 }
 
 
@@ -117,13 +118,12 @@ body{
    margin: 3px;
 }
 
-#imgIF {
-   position: absolute;
-   left: 450px; 
-   top: 350px;
-   bottom: 10px;
-   width: 70px; 
+#imgIF {                
+   width: 70px;
    height: auto;
+   position: absolute;   /* Agora a posição é relativa à div #Credits */
+   left: 10px;           /* Distância da borda esquerda */
+   bottom: 10px;         /* Distância da borda inferior */
 }
 
 #TelaDoGame{
