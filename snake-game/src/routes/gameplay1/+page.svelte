@@ -141,13 +141,13 @@
 
             <canvas
                 bind:this={canvas}
-                width="200"
-                height="200"
-                style="border: 2px solid #444; background: #000; display: block; margin: auto;"
+                width="300" 
+                height="300"
+                style="border: 2px solid #444; background-color: fff8d9 ; display: block; margin: auto;"
             ></canvas>
 
 
-            <button style="text-decoration:underline;" on:click={reiniciarJogo}>Restart</button>
+            <button style="text-decoration:underline; margin:2em" on:click={reiniciarJogo}>Restart</button>
         </div>
     </div>
 </div>
@@ -170,15 +170,15 @@
 
     #TelaDoGame {
         display: block;
-        background-color: aliceblue;
+        background-color: rgb(255, 252, 240);
         background-size: cover;
         margin-top: 7em;
     }
 
     #tela4 {
         border: 2px black solid;
-        width: 30em;
-        height: 20em;
+        min-width: 30em;
+        min-height: 20em;
         display: flex;
         align-items: center;
         flex-direction: column;

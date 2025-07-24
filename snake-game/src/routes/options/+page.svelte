@@ -1,3 +1,9 @@
+<script lang="ts">
+    import { playersStore } from '$lib/stores/stores';
+    import { playersStore as players } from '$lib/stores/stores';
+    
+</script>
+
 <div id="container">
     <div id="options">
         <div class="AreaDoBotao">
@@ -17,7 +23,11 @@
             <option value="Médio">Médio</option>
             <option value="Difícil">Difícil</option>
         </select>
-        <button id="SalvarConfiguracao">Salvar</button>
+        <br>
+        <select id="Players" bind:value={$players}>
+            <option value="/gameplay1">1 Player</option>
+            <option value="/gameplay2">2 Players</option>
+        </select>
     </div>
 </div>
 

@@ -1,0 +1,292 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+
+  let canvas: HTMLCanvasElement;
+  let interval: ReturnType<typeof setInterval>;
+  const box = 10;
+
+  type Direcao = "up" | "down" | "left" | "right";
+  type Posicao = { x: number; y: number };
+
+  type Player = {
+    snake: Posicao[];
+    direction: Direcao;
+    nextDirection: Direcao; // pra evitar virar na direção oposta instantâneo
+    colorHead: string;
+    colorBody: string;
+    controls: Record<string, Direcao>; // mapa tecla -> direção
+    score: number;
+  };
+
+  // Inicializa os dois players
+  let players: Player[] = [
+    {
+      snake: [{ x: 100, y: 100 }],
+      direction: "right",
+      nextDirection: "right",
+      colorHead: "lime",
+      colorBody: "green",
+      controls: {
+        ArrowUp: "up",
+        ArrowDown: "down",
+        ArrowLeft: "left",
+        ArrowRight: "right",
+      },
+      score: 0,
+    },
+    {
+      snake: [{ x: 200, y: 200 }],
+      direction: "left",
+      nextDirection: "left",
+      colorHead: "orange",
+      colorBody: "darkorange",
+      controls: {
+        w: "up",
+        s: "down",
+        a: "left",
+        d: "right",
+      },
+      score: 0,
+    },
+  ];
+
+  let food: Posicao;
+
+  function gerarComida(): Posicao {
+    // Gera comida em uma posição que não esteja em nenhuma cobra
+    while (true) {
+      const pos = {
+        x: Math.floor(Math.random() * (canvas.width / box)) * box,
+        y: Math.floor(Math.random() * (canvas.height / box)) * box,
+      };
+      const ocupada = players.some((player) =>
+        player.snake.some(
+          (segmento) => segmento.x === pos.x && segmento.y === pos.y,
+        ),
+      );
+      if (!ocupada) return pos;
+    }
+  }
+
+  function desenhar(ctx: CanvasRenderingContext2D) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Desenha comida
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    // Desenha as cobras
+    players.forEach((player) => {
+      player.snake.forEach((segmento, i) => {
+        ctx.fillStyle = i === 0 ? player.colorHead : player.colorBody;
+        ctx.fillRect(segmento.x, segmento.y, box, box);
+      });
+    });
+
+    // Desenha pontuações
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(`Player 1: ${players[0].score}`, 10, 20);
+    ctx.fillText(`Player 2: ${players[1].score}`, 10, 40);
+  }
+
+  function atualizarSnake(player: Player): boolean {
+    // Atualiza a direção (previne virar 180 graus)
+    if (
+      (player.nextDirection === "up" && player.direction !== "down") ||
+      (player.nextDirection === "down" && player.direction !== "up") ||
+      (player.nextDirection === "left" && player.direction !== "right") ||
+      (player.nextDirection === "right" && player.direction !== "left")
+    ) {
+      player.direction = player.nextDirection;
+    }
+
+    const head = { ...player.snake[0] };
+
+    switch (player.direction) {
+      case "right":
+        head.x += box;
+        break;
+      case "left":
+        head.x -= box;
+        break;
+      case "up":
+        head.y -= box;
+        break;
+      case "down":
+        head.y += box;
+        break;
+    }
+
+    // Colisão com parede
+    if (
+      head.x < 0 ||
+      head.y < 0 ||
+      head.x >= canvas.width ||
+      head.y >= canvas.height
+    ) {
+      return true; // Colidiu = game over pra esse player
+    }
+
+    // Colisão com o próprio corpo
+    for (let i = 0; i < player.snake.length; i++) {
+      if (head.x === player.snake[i].x && head.y === player.snake[i].y) {
+        return true;
+      }
+    }
+
+    // Colisão com outras cobras (inclusive a cabeça)
+    for (const outro of players) {
+      if (outro === player) continue;
+      for (const segment of outro.snake) {
+        if (head.x === segment.x && head.y === segment.y) {
+          return true;
+        }
+      }
+    }
+
+    player.snake.unshift(head);
+
+    // Comeu a comida?
+    if (head.x === food.x && head.y === food.y) {
+      player.score += 1;
+      food = gerarComida();
+      // Não remove a cauda (cresce)
+    } else {
+      player.snake.pop();
+    }
+
+    return false;
+  }
+
+  function gameLoop(ctx: CanvasRenderingContext2D) {
+    let gameOver = false;
+    players.forEach((player) => {
+      if (atualizarSnake(player)) {
+        gameOver = true;
+      }
+    });
+
+    if (gameOver) {
+      alert("Fim de jogo! Alguém perdeu.");
+      reiniciarJogo();
+    }
+
+    desenhar(ctx);
+  }
+
+  function reiniciarJogo() {
+    players[0].snake = [{ x: 100, y: 100 }];
+    players[0].direction = "right";
+    players[0].nextDirection = "right";
+    players[0].score = 0;
+
+    players[1].snake = [{ x: 200, y: 200 }];
+    players[1].direction = "left";
+    players[1].nextDirection = "left";
+    players[1].score = 0;
+
+    food = gerarComida();
+  }
+
+  function lidarComTeclado(e: KeyboardEvent) {
+    const teclaOriginal = e.key;
+    const teclaLower = teclaOriginal.toLowerCase();
+
+    players.forEach((player) => {
+      if (player.controls[teclaOriginal]) {
+        player.nextDirection = player.controls[teclaOriginal];
+      } else if (player.controls[teclaLower]) {
+        player.nextDirection = player.controls[teclaLower];
+      }
+    });
+  }
+
+  let SnakeSpeed = 150;
+
+  onMount(() => {
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    reiniciarJogo();
+
+    window.addEventListener("keydown", lidarComTeclado);
+    interval = setInterval(() => gameLoop(ctx), SnakeSpeed);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("keydown", lidarComTeclado);
+    };
+  });
+</script>
+
+<div id="container">
+  <div id="TelaDoGame">
+    <div id="tela4">
+      <div style="display: flex;">
+        <button id="Da4Para1">
+          <a href="/"> Back </a>
+        </button>
+        <p id="GameInfo">Score | Time: 00:20</p>
+      </div>
+
+      <canvas bind:this={canvas} width="300" height="300"></canvas>
+
+      <button style="text-decoration:underline; margin:2em;" on:click={reiniciarJogo}
+        >Restart</button
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  :global(:root) {
+    background-image: url("bricks.jpg");
+  }
+
+  #container {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: "MedievalSharp", cursive;
+    font-weight: 400;
+    font-style: normal;
+    background-size: cover;
+  }
+
+  #TelaDoGame {
+    display: block;
+    background-color: aliceblue;
+    background-size: cover;
+    margin-top: 7em;
+  }
+
+  #tela4 {
+    border: 2px black solid;
+    min-width: 30em;
+    min-height: 20em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #Da4Para1 {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 1.5em;
+    text-decoration: underline;
+  }
+
+  #Da4Para1:hover {
+    color: red;
+  }
+
+  canvas {
+    border: 2px solid black;
+    background: #eee;
+    display: block;
+    margin: 0 auto;
+  }
+</style>

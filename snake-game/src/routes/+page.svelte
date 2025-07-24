@@ -1,8 +1,12 @@
+<script lang="ts">
+    import { playersStore as players } from '$lib/stores/stores';
+</script>
+
 <div id="container">
     <div id="area">
         <div id="menu">
             <img id="icone" src="SnakesBite-removebg-preview.png" alt="" />
-            <p id="btnGame" class="textoMenu"><a href="/gameplay1">Start</a></p>
+            <p id="btnGame" class="textoMenu"><a href={$players}>Start</a></p>
             <p id="btnOptions" class="textoMenu"><a href="/options">Options</a></p>
             <p id="btnCredits" class="textoMenu"><a href="/credits">Credits</a></p>
         </div>
