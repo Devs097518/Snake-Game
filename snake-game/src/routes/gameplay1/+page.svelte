@@ -5,7 +5,12 @@
   // ------------------- [ CÓDIGO DA SNAKE ABAIXO ]----------------------
 
   import { onMount } from 'svelte';
+  import { difficultyStore as difficulty } from '$lib/stores/stores';
+  import { snakeColorStore } from '$lib/stores/stores'; // Importando o store para a cor da cobrinha
 
+  let snakeColor = 'green'; // cor padrão, para poder mudar a cor da cobrinha
+  snakeColorStore.subscribe(value => snakeColor = value); // agora snakeColor recebe o valor do store
+  
   let canvas: HTMLCanvasElement;
   let interval: ReturnType<typeof setInterval>;
   let score:number = 0
@@ -32,7 +37,7 @@
 
     // cobra
     snake.forEach((segmento, i) => {
-      ctx.fillStyle = i === 0 ? 'lime' : 'green';
+      ctx.fillStyle = snakeColor; // agora todos os segmentos, inclusive a cabeça, usam a cor escolhida
       ctx.fillRect(segmento.x, segmento.y, box, box);
     });
 
@@ -100,7 +105,7 @@
     if (tecla === "ArrowRight" && direction !== "left") direction = "right";
   }
 
-	let SnakeSpeed = 200
+	let SnakeSpeed = $difficulty
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
@@ -110,7 +115,7 @@
     desenhar(ctx);
 
     window.addEventListener("keydown", lidarComTeclado);
-    interval = setInterval(() => atualizar(ctx), SnakeSpeed);
+    interval = setInterval(() => atualizar(ctx), SnakeSpeed); 
 
     return () => {
       clearInterval(interval);
@@ -141,7 +146,7 @@
 
             <canvas
                 bind:this={canvas}
-                width="300" 
+                width="500" 
                 height="300"
                 style="border: 2px solid #444; background-color: fff8d9 ; display: block; margin: auto;"
             ></canvas>

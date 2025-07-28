@@ -1,5 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { difficultyStore as difficulty } from '$lib/stores/stores';
+  //import { snakeColorStore, snakeColor2Store } from '$lib/stores/stores';
+
+  //let snakeColor1 = 'green'; // cor padrão, para poder mudar a cor da cobrinha
+  //let snakeColor2 = 'blue';
+  //snakeColorStore.subscribe(value => snakeColor1 = value);
+  //snakeColor2Store.subscribe(value => snakeColor2 = value);
+
+// Use snakeColor1 para a cobrinha do player 1 e snakeColor2 para a do player 2
 
   let canvas: HTMLCanvasElement;
   let interval: ReturnType<typeof setInterval>;
@@ -70,6 +79,12 @@
 
   function desenhar(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Atualiza as cores dos jogadores antes de desenhar
+    //players[0].colorHead = snakeColor1;
+    //players[0].colorBody = snakeColor1;
+    //players[1].colorHead = snakeColor2;
+    //players[1].colorBody = snakeColor2;
 
     // Desenha comida
     ctx.fillStyle = "red";
@@ -202,7 +217,7 @@
     });
   }
 
-  let SnakeSpeed = 150;
+  let SnakeSpeed = $difficulty;
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
@@ -230,7 +245,7 @@
         <p id="GameInfo">Score | Time: 00:20</p>
       </div>
 
-      <canvas bind:this={canvas} width="300" height="300"></canvas>
+      <canvas bind:this={canvas} width="500" height="300"></canvas>
 
       <button style="text-decoration:underline; margin:2em;" on:click={reiniciarJogo}
         >Restart</button
