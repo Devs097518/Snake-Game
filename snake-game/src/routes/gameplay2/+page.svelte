@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { difficultyStore as difficulty } from '$lib/stores/stores';
+  import { snakeColorStore } from '$lib/stores/stores';
+  import { snakeColorStore_p2 } from '$lib/stores/stores';
   //import { snakeColorStore, snakeColor2Store } from '$lib/stores/stores';
 
   //let snakeColor1 = 'green'; // cor padrão, para poder mudar a cor da cobrinha
@@ -33,8 +35,8 @@
       snake: [{ x: 100, y: 100 }],
       direction: "right",
       nextDirection: "right",
-      colorHead: "lime",
-      colorBody: "green",
+      colorHead: $snakeColorStore,
+      colorBody: $snakeColorStore,
       controls: {
         ArrowUp: "up",
         ArrowDown: "down",
@@ -47,8 +49,8 @@
       snake: [{ x: 200, y: 200 }],
       direction: "left",
       nextDirection: "left",
-      colorHead: "orange",
-      colorBody: "darkorange",
+      colorHead: $snakeColorStore_p2,
+      colorBody: $snakeColorStore_p2,
       controls: {
         w: "up",
         s: "down",
