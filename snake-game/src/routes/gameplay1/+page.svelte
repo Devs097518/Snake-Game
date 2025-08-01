@@ -1,34 +1,34 @@
 <script lang="ts">
-
-
-
   // ------------------- [ CÓDIGO DA SNAKE ABAIXO ]----------------------
 
-  import { onMount } from 'svelte';
-  import { difficultyStore as difficulty } from '$lib/stores/stores';
-  import { snakeColorStore } from '$lib/stores/stores'; // Importando o store para a cor da cobrinha
+  import { onMount } from "svelte";
+  import { difficultyStore as difficulty } from "$lib/stores/stores";
+  import { snakeColorStore } from "$lib/stores/stores"; // Importando o store para a cor da cobrinha
 
-  let snakeColor = 'green'; // cor padrão, para poder mudar a cor da cobrinha
-  snakeColorStore.subscribe(value => snakeColor = value); // agora snakeColor recebe o valor do store
-  
+  let snakeColor = "green"; // cor padrão, para poder mudar a cor da cobrinha
+  snakeColorStore.subscribe((value) => (snakeColor = value)); // agora snakeColor recebe o valor do store
+
   let canvas: HTMLCanvasElement;
   let interval: ReturnType<typeof setInterval>;
-  let score:number = 0
+  let score: number = 0;
   const box = 10;
 
   // Tipos
   type Direcao = "up" | "down" | "left" | "right";
   type Posicao = { x: number; y: number };
 
-
-  let snake: Posicao[] = [{ x: 100, y: 100 }];
+  let snake: Posicao[] = [
+    { x: 100, y: 100 }, // cabeça
+    { x: 90, y: 100 }, // corpo
+    { x: 80, y: 100 }, // corpo
+  ];
   let direction: Direcao = "right";
   let food: Posicao;
 
   function gerarComida(): Posicao {
     return {
       x: Math.floor(Math.random() * (canvas.width / box)) * box,
-      y: Math.floor(Math.random() * (canvas.height / box)) * box
+      y: Math.floor(Math.random() * (canvas.height / box)) * box,
     };
   }
 
@@ -42,7 +42,7 @@
     });
 
     // comida
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, box, box);
   }
 
@@ -50,16 +50,26 @@
     const head: Posicao = { ...snake[0] };
 
     switch (direction) {
-      case "right": head.x += box; break;
-      case "left": head.x -= box; break;
-      case "up": head.y -= box; break;
-      case "down": head.y += box; break;
+      case "right":
+        head.x += box;
+        break;
+      case "left":
+        head.x -= box;
+        break;
+      case "up":
+        head.y -= box;
+        break;
+      case "down":
+        head.y += box;
+        break;
     }
 
     // colisão com parede
     if (
-      head.x < 0 || head.y < 0 ||
-      head.x >= canvas.width || head.y >= canvas.height
+      head.x < 0 ||
+      head.y < 0 ||
+      head.x >= canvas.width ||
+      head.y >= canvas.height
     ) {
       alert("Fim de jogo!");
       reiniciarJogo();
@@ -81,7 +91,7 @@
 
     // comeu a comida?
     if (head.x === food.x && head.y === food.y) {
-      score += 1
+      score += 1;
       food = gerarComida();
     } else {
       snake.pop();
@@ -91,7 +101,17 @@
   }
 
   function reiniciarJogo(): void {
-    snake = [{ x: 100, y: 100 }];
+    //     let snake: Posicao[] = [
+    //   { x: 100, y: 100 }, // cabeça
+    //   { x: 90, y: 100 }, // corpo
+    //   { x: 80, y: 100 }  // corpo
+    // ];
+
+    snake = [
+      { x: 100, y: 100 }, // cabeça
+      { x: 90, y: 100 }, // corpo
+      { x: 80, y: 100 }, // corpo
+    ];
     direction = "right";
     SnakeSpeed = 500;
     food = gerarComida();
@@ -105,7 +125,7 @@
     if (tecla === "ArrowRight" && direction !== "left") direction = "right";
   }
 
-	let SnakeSpeed = $difficulty
+  let SnakeSpeed = $difficulty;
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
@@ -115,7 +135,7 @@
     desenhar(ctx);
 
     window.addEventListener("keydown", lidarComTeclado);
-    interval = setInterval(() => atualizar(ctx), SnakeSpeed); 
+    interval = setInterval(() => atualizar(ctx), SnakeSpeed);
 
     return () => {
       clearInterval(interval);
@@ -124,81 +144,74 @@
   });
 
   // ------------------- [ CÓDIGO DA SNAKE ACIMA ]----------------------
-
-
-
 </script>
 
-
-
-
-
 <div id="container">
-    <div id="TelaDoGame">
-        <div id="tela4">
-            <div style="display: flex;">
-                <button id="Da4Para1">
-                    <a href="/"> Back </a>
-                </button>
-                <p id="GameInfo">Score:{score} | Time: 00:20</p>
-            </div>
+  <div id="TelaDoGame">
+    <div id="tela4">
+      <div style="display: flex;">
+        <button id="Da4Para1">
+          <a href="/"> Back </a>
+        </button>
+        <p id="GameInfo">Score:{score} | Time: 00:20</p>
+      </div>
 
+      <canvas
+        bind:this={canvas}
+        width="500"
+        height="300"
+        style="border: 2px solid #444; background-color: fff8d9 ; display: block; margin: auto;"
+      ></canvas>
 
-            <canvas
-                bind:this={canvas}
-                width="500" 
-                height="300"
-                style="border: 2px solid #444; background-color: fff8d9 ; display: block; margin: auto;"
-            ></canvas>
-
-
-            <button style="text-decoration:underline; margin:2em" on:click={reiniciarJogo}>Restart</button>
-        </div>
+      <button
+        style="text-decoration:underline; margin:2em"
+        on:click={reiniciarJogo}>Restart</button
+      >
     </div>
+  </div>
 </div>
 
 <style>
-    :global(:root) {
-        background-image: url("bricks.jpg");
-    }
+  :global(:root) {
+    background-image: url("bricks.jpg");
+  }
 
-    #container {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        font-family: "MedievalSharp", cursive;
-        font-weight: 400;
-        font-style: normal;
-        background-size: cover;
-    }
+  #container {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: "MedievalSharp", cursive;
+    font-weight: 400;
+    font-style: normal;
+    background-size: cover;
+  }
 
-    #TelaDoGame {
-        display: block;
-        background-color: rgb(255, 252, 240);
-        background-size: cover;
-        margin-top: 7em;
-    }
+  #TelaDoGame {
+    display: block;
+    background-color: rgb(255, 252, 240);
+    background-size: cover;
+    margin-top: 7em;
+  }
 
-    #tela4 {
-        border: 2px black solid;
-        min-width: 30em;
-        min-height: 20em;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-    }
+  #tela4 {
+    border: 2px black solid;
+    min-width: 30em;
+    min-height: 20em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
 
+  #Da4Para1 {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 1.5em;
+    text-decoration: underline;
+  }
 
-    #Da4Para1 {
-        background-color: rgba(0, 0, 0, 0);
-        border: none;
-        font-size: 1.5em;
-        text-decoration: underline;
-    }
-
-    #Da4Para1:hover {
-        color: red;
-    }
+  #Da4Para1:hover {
+    color: red;
+  }
 </style>

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { difficultyStore as difficulty } from '$lib/stores/stores';
-  import { snakeColorStore } from '$lib/stores/stores';
-  import { snakeColorStore_p2 } from '$lib/stores/stores';
+  import { difficultyStore as difficulty } from "$lib/stores/stores";
+  import { snakeColorStore } from "$lib/stores/stores";
+  import { snakeColorStore_p2 } from "$lib/stores/stores";
   //import { snakeColorStore, snakeColor2Store } from '$lib/stores/stores';
 
   //let snakeColor1 = 'green'; // cor padrão, para poder mudar a cor da cobrinha
@@ -10,7 +10,7 @@
   //snakeColorStore.subscribe(value => snakeColor1 = value);
   //snakeColor2Store.subscribe(value => snakeColor2 = value);
 
-// Use snakeColor1 para a cobrinha do player 1 e snakeColor2 para a do player 2
+  // Use snakeColor1 para a cobrinha do player 1 e snakeColor2 para a do player 2
 
   let canvas: HTMLCanvasElement;
   let interval: ReturnType<typeof setInterval>;
@@ -32,7 +32,11 @@
   // Inicializa os dois players
   let players: Player[] = [
     {
-      snake: [{ x: 100, y: 100 }],
+      snake: [
+        { x: 100, y: 100 }, // cabeça
+        { x: 90, y: 100 }, // corpo
+        { x: 80, y: 100 }, // corpo
+      ],
       direction: "right",
       nextDirection: "right",
       colorHead: $snakeColorStore,
@@ -46,7 +50,11 @@
       score: 0,
     },
     {
-      snake: [{ x: 200, y: 200 }],
+      snake: [
+        { x: 200, y: 200 }, // cabeça
+        { x: 190, y: 200 }, // corpo
+        { x: 180, y: 200 }, // corpo
+      ],
       direction: "left",
       nextDirection: "left",
       colorHead: $snakeColorStore_p2,
@@ -193,12 +201,14 @@
   }
 
   function reiniciarJogo() {
-    players[0].snake = [{ x: 100, y: 100 }];
+    players[0].snake = [{ x: 100, y: 100 }, { x: 90, y: 100 }, { x: 80, y: 100 }
+    ];
     players[0].direction = "right";
     players[0].nextDirection = "right";
     players[0].score = 0;
 
-    players[1].snake = [{ x: 200, y: 200 }];
+    players[1].snake = [{ x: 400, y: 200 }, { x: 410, y: 200 }, { x: 420, y: 200 }
+      ];
     players[1].direction = "left";
     players[1].nextDirection = "left";
     players[1].score = 0;
@@ -249,8 +259,9 @@
 
       <canvas bind:this={canvas} width="500" height="300"></canvas>
 
-      <button style="text-decoration:underline; margin:2em;" on:click={reiniciarJogo}
-        >Restart</button
+      <button
+        style="text-decoration:underline; margin:2em;"
+        on:click={reiniciarJogo}>Restart</button
       >
     </div>
   </div>

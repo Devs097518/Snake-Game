@@ -92,9 +92,9 @@
         <input type="range" min="0" max="100" value="50" id="VolumeSlider" />
         <p>Dificuldade</p>
         <select id="Dificuldade" bind:value={$difficulty}>
-            <option value="1000">Fácil</option>
-            <option value="500">Médio</option>
-            <option value="100">Difícil</option>
+            <option value="300">Fácil</option>
+            <option value="100">Médio</option>
+            <option value="80">Difícil</option>
         </select>
         <br />
         <select id="Players" bind:value={$players}>
