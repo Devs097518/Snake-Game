@@ -13,6 +13,20 @@
   let score: number = 0;
   const box = 10;
 
+  let segundos:number = 0
+  let minutos:number = 0
+  
+
+  function tempo():void{
+    if(segundos>59){
+      segundos = 0
+      minutos++
+    }
+    segundos++
+  };
+
+  setInterval(tempo,1000);
+
   // Tipos
   type Direcao = "up" | "down" | "left" | "right";
   type Posicao = { x: number; y: number };
@@ -100,6 +114,8 @@
     desenhar(ctx);
   }
 
+
+
   function reiniciarJogo(): void {
     //     let snake: Posicao[] = [
     //   { x: 100, y: 100 }, // cabeça
@@ -115,6 +131,9 @@
     direction = "right";
     SnakeSpeed = 500;
     food = gerarComida();
+    segundos = 0;
+    minutos = 0;
+
   }
 
   function lidarComTeclado(e: KeyboardEvent): void {
@@ -125,7 +144,7 @@
     if (tecla === "ArrowRight" && direction !== "left") direction = "right";
   }
 
-  let SnakeSpeed = $difficulty;
+	let SnakeSpeed = Number($difficulty)
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
@@ -147,14 +166,15 @@
 </script>
 
 <div id="container">
-  <div id="TelaDoGame">
-    <div id="tela4">
-      <div style="display: flex;">
-        <button id="Da4Para1">
-          <a href="/"> Back </a>
-        </button>
-        <p id="GameInfo">Score:{score} | Time: 00:20</p>
-      </div>
+    <div id="TelaDoGame">
+        <div id="tela4">
+            <div style="display: flex;">
+                <button id="Da4Para1">
+                    <a href="/"> Back </a>
+                </button>
+                <p id="GameInfo">Score:{score} | Time: {minutos}:{segundos}</p>
+            </div>
+
 
       <canvas
         bind:this={canvas}

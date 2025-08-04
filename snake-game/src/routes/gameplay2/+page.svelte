@@ -16,6 +16,9 @@
   let interval: ReturnType<typeof setInterval>;
   const box = 10;
 
+  let segundos: number = 0;
+  let minutos: number = 0;
+
   type Direcao = "up" | "down" | "left" | "right";
   type Posicao = { x: number; y: number };
 
@@ -200,6 +203,15 @@
     desenhar(ctx);
   }
 
+  function tempo(): void {
+    if (segundos > 59) {
+      segundos = 0;
+      minutos++;
+    }
+    segundos++;
+  }
+  setInterval(tempo, 1000);
+
   function reiniciarJogo() {
     players[0].snake = [{ x: 100, y: 100 }, { x: 90, y: 100 }, { x: 80, y: 100 }
     ];
@@ -214,6 +226,8 @@
     players[1].score = 0;
 
     food = gerarComida();
+    segundos = 0;
+    minutos = 0;
   }
 
   function lidarComTeclado(e: KeyboardEvent) {
@@ -229,7 +243,7 @@
     });
   }
 
-  let SnakeSpeed = $difficulty;
+  let SnakeSpeed = Number($difficulty);
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
@@ -254,7 +268,7 @@
         <button id="Da4Para1">
           <a href="/"> Back </a>
         </button>
-        <p id="GameInfo">Score | Time: 00:20</p>
+        <p id="GameInfo">Score | Time: {minutos}:{segundos}</p>
       </div>
 
       <canvas bind:this={canvas} width="500" height="300"></canvas>
