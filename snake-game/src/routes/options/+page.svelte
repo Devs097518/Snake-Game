@@ -8,10 +8,13 @@
     import { get } from "svelte/store"; // Importando get para acessar o valor do store
     //import { snakeColor2Store } from '$lib/stores/stores'; // Importando o store para a cor do player 2
 
-    // Lista de 10 cores
-    const cores = ["red", "yellow", "blue"];
 
+
+
+    const cores = ["red", "yellow", "blue"];
     const cores_p2 = ["green", "purple", "orange"];
+
+    
 
     let corSelecionada = get(snakeColorStore);
     let corSelecionada_p2 = get(snakeColorStore_p2);
@@ -114,8 +117,8 @@
         </select>
         <br />
         <select id="Players" bind:value={$players}>
-            <option value="/gameplay1">1 Player</option>
-            <option value="/gameplay2">2 Players</option>
+            <option value='/gameplay1'>1 Player</option>
+            <option value='/gameplay2'>2 Players</option>
         </select>
     </div>
 </div>

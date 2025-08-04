@@ -1,3 +1,7 @@
+<script lang="ts">
+    import Colab from '$lib/Colab.svelte'
+</script>
+
 <div id="container">
     <div id="Credits">
         <div class="AreaDoBotao">
@@ -6,13 +10,18 @@
             </a>
         </div>
 
-        <div style="flex-direction: column;">
-            <h2>Colaboradores :</h2>
-            <p class="colaboradores">Dayvson</p>
-            <p class="colaboradores">Luhan</p>
-            <p class="colaboradores">Alan</p>
-            <p class="colaboradores">Luísa</p>
-            <p class="colaboradores">Yuri</p>
+        <div id="colaboradores-caixa">
+            <div>
+              <h2>Colaboradores :</h2>  
+            </div>
+            
+            <Colab nome="Alan" />
+            <Colab nome="Dayvson" />
+            <Colab nome="Luhan" />
+            <Colab nome="Luísa" />
+            <Colab nome="Yuri" />
+            
+            
         </div>
     </div>
 </div>
@@ -38,10 +47,18 @@
         margin-top: 7em;
         border: 1px black solid;
         width: 30em;
-        height: 20em;
-        background-color: rgb(155, 166, 175);
+        min-height: 20em;
+        background-color: rgb(156, 195, 202);
         align-items: center;
     }
+
+    #colaboradores-caixa {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+
     .AreaDoBotao {
         text-align: start;
         margin: 0px;
