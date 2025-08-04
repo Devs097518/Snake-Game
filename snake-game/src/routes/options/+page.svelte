@@ -4,6 +4,7 @@
     import { difficultyStore as difficulty } from "$lib/stores/stores";
     import { snakeColorStore } from "$lib/stores/stores"; // Importando o store para a cor da cobrinha
     import { snakeColorStore_p2 } from "$lib/stores/stores";
+    import { volumeStore } from "$lib/stores/stores"; // Importando o store para o volume
     import { get } from "svelte/store"; // Importando get para acessar o valor do store
     //import { snakeColor2Store } from '$lib/stores/stores'; // Importando o store para a cor do player 2
 
@@ -15,6 +16,9 @@
     let corSelecionada = get(snakeColorStore);
     let corSelecionada_p2 = get(snakeColorStore_p2);
     //let corSelecionada2 = get(snakeColor2Store);
+    let volume = 0.5; // Valor inicial do volume (50%)
+    volume = get(volumeStore); // Aqui ele pega o volume atual do store
+    volumeStore.subscribe(value => volume = value); // Mantém o volume em sincronia
 
     let aparente: string = "none";
     // function quantidadeDePlayers(quantos:string):void{ // tira essa função e coloca $: nesses if
@@ -37,6 +41,11 @@
         corSelecionada_p2 = cor_p2;
         snakeColorStore_p2.set(cor_p2);
     }
+
+    function updateVolume() {
+        volumeStore.set(volume);
+    }
+
     /*function selecionarCor2(cor: string) {
   corSelecionada2 = cor;
   snakeColor2Store.set(cor);
@@ -89,7 +98,14 @@
 
         <!-- As outras opções continuam normalmente -->
         <p>Volume</p>
-        <input type="range" min="0" max="100" value="50" id="VolumeSlider" />
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          bind:value={volume}
+          on:input={updateVolume}
+        />
         <p>Dificuldade</p>
         <select id="Dificuldade" bind:value={$difficulty}>
             <option value="300">Fácil</option>

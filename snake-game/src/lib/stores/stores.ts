@@ -7,6 +7,7 @@ import { writable } from 'svelte/store';
     export const snakeColorStore_p2 = writable('green');
     //export const snakeColor2Store = writable('blue'); // cor padrão do player 2
     // Local variable for select binding
+    export const volumeStore = writable(0.5); // Volume padrão 50%
     let players: string = '/gameplay1';
     let difficulty : number = 500; // Default difficulty
 

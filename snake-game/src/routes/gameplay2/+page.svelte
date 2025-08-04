@@ -3,6 +3,7 @@
   import { difficultyStore as difficulty } from "$lib/stores/stores";
   import { snakeColorStore } from "$lib/stores/stores";
   import { snakeColorStore_p2 } from "$lib/stores/stores";
+  import { volumeStore } from "$lib/stores/stores";
   //import { snakeColorStore, snakeColor2Store } from '$lib/stores/stores';
 
   //let snakeColor1 = 'green'; // cor padrão, para poder mudar a cor da cobrinha
@@ -15,6 +16,11 @@
   let canvas: HTMLCanvasElement;
   let interval: ReturnType<typeof setInterval>;
   const box = 10;
+
+  let currentVolume = 0.5;
+  volumeStore.subscribe(value => currentVolume = value);
+  let audioComida: HTMLAudioElement;
+  let audioGameOver: HTMLAudioElement;
 
   type Direcao = "up" | "down" | "left" | "right";
   type Posicao = { x: number; y: number };
@@ -175,8 +181,8 @@
     // Comeu a comida?
     if (head.x === food.x && head.y === food.y) {
       player.score += 1;
-      food = gerarComida();
-      // Não remove a cauda (cresce)
+      food = gerarComida(); // Não remove a cauda (cresce)
+      audioComida.play();
     } else {
       player.snake.pop();
     }
@@ -193,6 +199,7 @@
     });
 
     if (gameOver) {
+      audioGameOver.play();
       alert("Fim de jogo! Alguém perdeu.");
       reiniciarJogo();
     }
@@ -234,6 +241,16 @@
   onMount(() => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    audioComida = new Audio('/Eating-Apple.mp3');
+    audioComida.volume = currentVolume;
+    audioGameOver = new Audio('/Game-Over.mp3');
+    audioGameOver.volume = currentVolume;
+
+    volumeStore.subscribe(newVolume => {
+      if (audioComida) audioComida.volume = newVolume;
+      if (audioGameOver) audioGameOver.volume = newVolume;
+    });
 
     reiniciarJogo();
 
