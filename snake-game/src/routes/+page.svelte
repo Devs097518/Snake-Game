@@ -1,14 +1,57 @@
 <script lang="ts">
     import { playersStore as players } from '$lib/stores/stores';
+    import { volumeStore} from '$lib/stores/stores';
+    import { onMount } from 'svelte';
+
+    let currentVolume = 0.5;
+    volumeStore.subscribe(value => currentVolume = value);
+    let audioMenuHover: HTMLAudioElement;
+    let audioClick: HTMLAudioElement;
+
+    onMount(() => {
+        audioMenuHover = new Audio('/audio/Menu-Selection.mp3');
+        audioMenuHover.volume = currentVolume;
+        audioClick = new Audio('/audio/On-Click.mp3');
+        audioClick.volume = currentVolume;
+
+        // Controla o volume pelas opções aqui:
+        volumeStore.subscribe (newVolume => {
+            if (audioMenuHover) audioMenuHover.volume = newVolume;
+            if (audioClick) audioClick.volume = newVolume;
+        });
+    });
+
+    function playHoverSound() {
+        if (audioMenuHover) {
+            audioMenuHover.currentTime = 0; // Isso aqui vai reiniciar o áudio se já estiver tocando
+            audioMenuHover.play(); 
+        }
+    }
+
+    function playClickSound() {
+        if (audioClick) {
+            audioClick.currentTime = 0;
+            audioClick.play();
+        }
+    }
+
 </script>
 
 <div id="container">
     <div id="area">
         <div id="menu">
             <img id="icone" src="SnakesBite-removebg-preview.png" alt="" />
-            <p id="btnGame" class="textoMenu"><a href={$players}>Start</a></p>
-            <p id="btnOptions" class="textoMenu"><a href="/options">Options</a></p>
-            <p id="btnCredits" class="textoMenu"><a href="/credits">Credits</a></p>
+            <p id="btnGame" class="textoMenu" on:mouseenter={playHoverSound} on:click={playClickSound}>
+                <a href={$players}>Start</a>
+            </p>
+
+            <p id="btnOptions" class="textoMenu" on:mouseenter={playHoverSound} on:click={playClickSound}>
+                <a href="/options">Options</a>
+            </p>
+
+            <p id="btnCredits" class="textoMenu" on:mouseenter={playHoverSound} on:click={playClickSound}>
+                <a href="/credits">Credits</a>
+            </p>
         </div>
         <div id="menuvao"></div>
     </div>

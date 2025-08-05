@@ -22,6 +22,8 @@
   volumeStore.subscribe(value => currentVolume = value);
   let audioComida: HTMLAudioElement;
   let audioGameOver: HTMLAudioElement;
+  let audioMenuHover: HTMLAudioElement;
+  let audioClick: HTMLAudioElement;
 
   // Sistema de timer
   let segundos: number = 0;
@@ -252,20 +254,40 @@
     });
   }
 
+  function playHoverSound() {
+    if (audioMenuHover) {
+      audioMenuHover.currentTime = 0; // Reinicia o áudio
+      audioMenuHover.play();
+    }
+  }
+
+  function playClickSound() {
+    if (audioClick) {
+      audioClick.currentTime = 0; // Reinicia o áudio
+      audioClick.play();
+    }
+  }
+
   let SnakeSpeed = Number($difficulty);
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    audioComida = new Audio('/Eating-Apple.mp3');
+    audioComida = new Audio('/audio/Eating-Apple.mp3');
     audioComida.volume = currentVolume;
-    audioGameOver = new Audio('/Game-Over.mp3');
+    audioGameOver = new Audio('/audio/Game-Over.mp3');
     audioGameOver.volume = currentVolume;
+    audioMenuHover = new Audio('/audio/Menu-Selection.mp3');
+    audioMenuHover.volume = currentVolume;
+    audioClick = new Audio('/audio/On-Click.mp3');
+    audioClick.volume = currentVolume;
 
     volumeStore.subscribe(newVolume => {
       if (audioComida) audioComida.volume = newVolume;
       if (audioGameOver) audioGameOver.volume = newVolume;
+      if (audioMenuHover) audioMenuHover.volume = newVolume;
+      if (audioClick) audioClick.volume = newVolume;
     });
 
     reiniciarJogo();
@@ -284,7 +306,7 @@
   <div id="TelaDoGame">
     <div id="tela4">
       <div style="display: flex;">
-        <button id="Da4Para1">
+        <button id="Da4Para1" on:mouseenter={playHoverSound} on:click={playClickSound}>
           <a href="/"> Back </a>
         </button>
         <p id="GameInfo">Score | Time: {minutos}:{segundos}</p>

@@ -43,6 +43,8 @@
   let food: Posicao;
   let audioComida: HTMLAudioElement; // Declaração do áudio da mordida aqui
   let audioGameOver: HTMLAudioElement; // Declaração do áudio de Game Over (Fim de Jogo)
+  let audioMenuHover: HTMLAudioElement; // Declaração do áudio de hover no menu
+  let audioClick: HTMLAudioElement; // Declaração do áudio de clique
 
   function gerarComida(): Posicao {
     return {
@@ -152,22 +154,42 @@
     if (tecla === "ArrowRight" && direction !== "left") direction = "right";
   }
 
+  function playHoverSound() {
+    if (audioMenuHover) {
+        audioMenuHover.currentTime = 0;
+        audioMenuHover.play();
+    }
+  }
+
+  function playClickSound() {
+    if (audioClick) {
+        audioClick.currentTime = 0;
+        audioClick.play();
+    }
+  }
+
 	let SnakeSpeed = Number($difficulty)
 
   onMount(() => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    audioComida = new Audio('/Eating-Apple.mp3');
+    audioComida = new Audio('/audio/Eating-Apple.mp3');
     audioComida.volume = currentVolume;
 
-audioGameOver = new Audio('/Game-Over.mp3');
+audioGameOver = new Audio('/audio/Game-Over.mp3');
 audioGameOver.volume = currentVolume;
+audioMenuHover = new Audio('/audio/Menu-Selection.mp3');
+audioMenuHover.volume = currentVolume;
+audioClick = new Audio('/audio/On-Click.mp3');
+audioClick.volume = currentVolume;
 
 // Segue o subscribe para ambos os sons (Só precisa de um)
 volumeStore.subscribe(newVolume => {
   if (audioComida) audioComida.volume = newVolume;
   if (audioGameOver) audioGameOver.volume = newVolume;
+  if (audioMenuHover) audioMenuHover.volume = newVolume;
+  if (audioClick) audioClick.volume = newVolume;
 });
     
     food = gerarComida();
@@ -189,7 +211,7 @@ volumeStore.subscribe(newVolume => {
     <div id="TelaDoGame">
         <div id="tela4">
             <div style="display: flex;">
-                <button id="Da4Para1">
+                <button id="Da4Para1" on:mouseenter={playHoverSound} on:click={playClickSound}>
                     <a href="/"> Back </a>
                 </button>
                 <p id="GameInfo">Score:{score} | Time: {minutos}:{segundos}</p>
