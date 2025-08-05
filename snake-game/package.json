@@ -24,5 +24,8 @@
 	"main": "svelte.config.js",
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"@sveltejs/adapter-vercel": "^5.8.1"
+	}
 }
