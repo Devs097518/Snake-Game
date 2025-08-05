@@ -62,7 +62,7 @@
 
 <style>
     :global(:root) {
-        background-image: url("bricks.jpg");
+        background-image: url("bricks.png");
     }
 
     #container {

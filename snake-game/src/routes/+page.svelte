@@ -59,7 +59,7 @@
 
 <style>
     :global(:root) {
-        background-image: url('bricks.jpg');
+        background-image: url('bricks.png');
     }
 
     a{
@@ -79,7 +79,7 @@
 
     #area {
         display: flex;
-        background-image: url(telainicial.jpg);
+        background-image: url(telainicial.png);
         background-size: cover;
         margin-top: 7em;
     }
