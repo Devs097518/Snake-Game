@@ -47,7 +47,7 @@
 
         <div id="colaboradores-caixa">
             <div>
-              <h2>Colaboradores :</h2>  
+              <h2 style="font-size:3em">Colaboradores :</h2>  
             </div>
             
             <Colab nome="Alan Santos" />
@@ -62,7 +62,7 @@
 
 <style>
     :global(:root) {
-        background-image: url("bricks.png");
+        background-image: url("/wall.png");
     }
 
     #container {
@@ -70,7 +70,7 @@
         text-align: center;
         align-items: center;
         justify-content: center;
-        font-family: "MedievalSharp", cursive;
+        font-family: "Jacquard 12", system-ui;
         font-weight: 400;
         font-style: normal;
         background-size: cover;
@@ -79,10 +79,10 @@
     #Credits {
         display: block;
         margin-top: 7em;
-        border: 1px black solid;
+        border: 7px black solid;
         width: 30em;
         min-height: 20em;
-        background-color: rgb(156, 195, 202);
+        background-color: rgb(100, 4, 49);
         align-items: center;
     }
 
@@ -101,7 +101,6 @@
     .VoltarMenu {
         width: 50px;
         margin: 5px;
-        background-color: rgba(240, 248, 255, 0);
         border: 0;
         cursor: pointer;
     }

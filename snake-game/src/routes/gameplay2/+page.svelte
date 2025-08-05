@@ -309,13 +309,13 @@
         <button id="Da4Para1" on:mouseenter={playHoverSound} on:click={playClickSound}>
           <a href="/"> Back </a>
         </button>
-        <p id="GameInfo">Score | Time: {minutos}:{segundos}</p>
+        <p id="GameInfo">Time: {minutos}:{segundos}</p>
       </div>
 
-      <canvas bind:this={canvas} width="500" height="300"></canvas>
+      <canvas bind:this={canvas} width="500" height="300" style='background-image: url(podzol-dirt.png) ; background-repeat: repeat;
+        background-size: 150px 150px; margin:25px ; border: black solid 10px '></canvas>
 
-      <button
-        style="text-decoration:underline; margin:2em;"
+      <button id="btnRestart"
         on:click={reiniciarJogo}>Restart</button
       >
     </div>
@@ -323,8 +323,10 @@
 </div>
 
 <style>
+
+
   :global(:root) {
-    background-image: url("bricks.png");
+    background-image: url("wall.png");
   }
 
   #container {
@@ -340,13 +342,13 @@
 
   #TelaDoGame {
     display: block;
-    background-color: aliceblue;
+    background-color: rgb(100, 4, 49);
     background-size: cover;
     margin-top: 7em;
   }
 
   #tela4 {
-    border: 2px black solid;
+    border: 7px black solid;
     min-width: 30em;
     min-height: 20em;
     display: flex;
@@ -371,5 +373,29 @@
     background: #eee;
     display: block;
     margin: 0 auto;
+  }
+
+  #GameInfo {
+    font-size: 2em;
+    margin: 0 2em;
+    font-family: "Jacquard 12", system-ui;
+  }
+
+  a {
+    
+    color: rgb(0, 0, 0);
+    font-family: "Jacquard 12", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+   #btnRestart{
+    text-decoration:none; 
+    margin:2em;
+    background-color: rgba(255, 0, 0, 0);
+    border: 1px solid black;
+    border-radius: 30px;
+    font-family: "Jacquard 12", system-ui;
+    font-size: 1.3em;
   }
 </style>

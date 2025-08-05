@@ -92,21 +92,21 @@
                 </a>
             </button>
         </div>
-        <h1>Opções :</h1>
+        <h1>- Opções -</h1>
         <!-- Personalização da cor da cobrinha -->
 
         <div
             style="display:flex; flex-wrap: wrap; gap: 0.5em; justify-content: center; align-items: center;"
         >
-            <p>Player 1 color</p>
+            <p style="font-size:2em">Player 1 color :</p>
             {#each cores as cor}
                 <button
                     on:click={() => selecionarCor(cor)}
                     on:mouseenter={playHoverSound}
                     on:click={playClickSound}
-                    style="width: 24px; height: 24px; background: {cor}; border: {corSelecionada ===
+                    style="width: 34px; height: 24px; background: {cor}; border: {corSelecionada ===
                     cor
-                        ? '3px dotted #000'
+                        ? '5px double #000'
                         : '1px solid #ccc'}; border-radius: 6px; cursor: pointer; padding: 0;"
                     aria-label="Selecionar cor {cor}"
                 ></button>
@@ -116,15 +116,15 @@
         <div
             style="display:{aparente}; flex-wrap: wrap; gap: 0.5em; justify-content: center; align-items: center;"
         >
-            <p>Player 2 color</p>
+            <p style="font-size:2em">Player 2 color : </p>
             {#each cores_p2 as cor_p2}
                 <button
                     on:click={() => selecionarCor_p2(cor_p2)}
                     on:mouseenter={playHoverSound}
                     on:click={playClickSound}
-                    style="width: 24px; height: 24px; background: {cor_p2}; border: {corSelecionada_p2 ===
+                    style="width: 34px; height: 24px; background: {cor_p2}; border: {corSelecionada_p2 ===
                     cor_p2
-                        ? '3px dotted #000'
+                        ? '5px double #000'
                         : '1px solid #ccc'}; border-radius: 6px; cursor: pointer; padding: 0;"
                     aria-label="Selecionar cor {cor_p2}"
                 ></button>
@@ -132,16 +132,18 @@
         </div>
 
         <!-- As outras opções continuam normalmente -->
-        <p>Volume</p>
+         
+        <p style="font-size:2em">Volume</p>
         <input
           type="range"
           min="0"
           max="1"
           step="0.1"
+          style="accent-color: red;"
           bind:value={volume}
           on:input={updateVolume}
         />
-        <p>Dificuldade</p>
+        <p style="font-size:2em">Dificuldade</p>
         <select id="Dificuldade" bind:value={$difficulty} on:change={playClickSound}>
             <option value="300">Fácil</option>
             <option value="100">Médio</option>
@@ -157,7 +159,11 @@
 
 <style>
     :global(:root) {
-        background-image: url("bricks.png");
+        background-image: url("wall.png");
+    }
+
+    h1{
+        font-size: 3em;
     }
 
     #container {
@@ -165,19 +171,21 @@
         text-align: center;
         align-items: center;
         justify-content: center;
-        font-family: "MedievalSharp", cursive;
+        font-family: "Jacquard 12", system-ui;
         font-weight: 400;
         font-style: normal;
         background-size: cover;
+
+        
     }
 
     #options {
         display: block;
         margin-top: 7em;
-        border: 2px black solid;
+        border: 10px black solid;
         width: 30em;
         min-height: 28em;
-        background-color: aliceblue;
+        background-color: rgb(216, 145, 178);
         align-items: center;
         flex-direction: column;
         justify-content: center;
@@ -202,5 +210,14 @@
 
     select {
         margin-bottom: 1em;
+        width: 8em;
+        font-family: "Jacquard 12", system-ui;
+        font-size: 2em;
+        border: none;
+    }
+
+    option {
+        font-family: "Jacquard 12", system-ui;
+        border: none;
     }
 </style>
