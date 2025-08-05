@@ -111,8 +111,5 @@
         height: 40px;
     }
 
-    .colaboradores {
-        font-size: 1.2em;
-        margin: 3px;
-    }
+   
 </style>
