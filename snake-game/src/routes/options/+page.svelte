@@ -81,6 +81,7 @@
   corSelecionada2 = cor;
   snakeColor2Store.set(cor);
 } */
+
 </script>
 
 <div id="container">
@@ -92,13 +93,13 @@
                 </a>
             </button>
         </div>
-        <h1>- Opções -</h1>
+        <h1>- Options -</h1>
         <!-- Personalização da cor da cobrinha -->
 
         <div
             style="display:flex; flex-wrap: wrap; gap: 0.5em; justify-content: center; align-items: center;"
         >
-            <p style="font-size:2em">Player 1 color :</p>
+            <p style="font-size:2em">Player 1 colors :</p>
             {#each cores as cor}
                 <button
                     on:click={() => selecionarCor(cor)}
@@ -116,7 +117,7 @@
         <div
             style="display:{aparente}; flex-wrap: wrap; gap: 0.5em; justify-content: center; align-items: center;"
         >
-            <p style="font-size:2em">Player 2 color : </p>
+            <p style="font-size:2em">Player 2 colors : </p>
             {#each cores_p2 as cor_p2}
                 <button
                     on:click={() => selecionarCor_p2(cor_p2)}
@@ -143,11 +144,11 @@
           bind:value={volume}
           on:input={updateVolume}
         />
-        <p style="font-size:2em">Dificuldade</p>
+        <p style="font-size:2em">Difficulty</p>
         <select id="Dificuldade" bind:value={$difficulty} on:change={playClickSound}>
-            <option value="300">Fácil</option>
-            <option value="100">Médio</option>
-            <option value="80">Difícil</option>
+            <option value="300">Easy</option>
+            <option value="100">Medium</option>
+            <option value="80">Hard</option>
         </select>
         <br />
         <select id="Players" bind:value={$players} on:change={playClickSound}>

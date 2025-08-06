@@ -47,7 +47,7 @@
 
         <div id="colaboradores-caixa">
             <div>
-              <h2 style="font-size:3em">Colaboradores :</h2>  
+              <h2 style="font-size:3em">Developers :</h2>  
             </div>
             
             <Colab nome="Alan Santos" />

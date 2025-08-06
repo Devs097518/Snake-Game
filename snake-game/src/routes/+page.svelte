@@ -39,7 +39,7 @@
 <div id="container">
     <div id="area">
         <div id="menu">
-            <img id="icone" src="SnakesBite-removebg-preview.png" alt="" />
+            <img id="icone" src="SnakesBite-Logo.png" alt="" />
             <button
                 id="btnGame"
                 class="textoMenu"
@@ -110,6 +110,8 @@
 
     #icone {
         width: 300px;
+        filter: drop-shadow(0 0 10px white);
+        margin-bottom: 35px; /* Espaçamento entre o ícone e os botões */
     }
 
     .textoMenu {
@@ -131,6 +133,13 @@
         font-size: 45px;
         -webkit-text-fill-color: rgb(194, 3, 92);
         text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.534);
+    }
+
+    .textoMenu:active { /* Efeito que o texto fica amarelo ao ser clicado */
+        margin:0;
+        font-size: 45px;
+        -webkit-text-fill-color: #FFD700;
+        text-shadow: 2px 2px 4px rgb(0, 0, 0);
     }
 
     #menuvao {

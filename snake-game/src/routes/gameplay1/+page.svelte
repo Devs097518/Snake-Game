@@ -44,6 +44,7 @@
   let audioGameOver: HTMLAudioElement; // Declaração do áudio de Game Over (Fim de Jogo)
   let audioMenuHover: HTMLAudioElement; // Declaração do áudio de hover no menu
   let audioClick: HTMLAudioElement; // Declaração do áudio de clique
+  let audioGameplay: HTMLAudioElement; // Declaração do áudio de gameplay
 
   function gerarComida(): Posicao {
     return {
@@ -91,6 +92,7 @@
       head.x >= canvas.width ||
       head.y >= canvas.height
     ) {
+      if (audioGameplay) audioGameplay.pause(); // Pausa o áudio de gameplay ao perder
       audioGameOver.play(); // Linha que chama o som de Game Over
       alert("Fim de jogo!");
       reiniciarJogo();
@@ -101,6 +103,7 @@
     // colisão com o corpo
     for (let i = 1; i < snake.length; i++) {
       if (head.x === snake[i].x && head.y === snake[i].y) {
+        if (audioGameplay) audioGameplay.pause(); // Pausa o áudio de gameplay ao perder
         audioGameOver.play(); // Linha que chama o som de Game Over
         alert("Você bateu em si mesmo!");
         reiniciarJogo();
@@ -140,6 +143,11 @@
     food = gerarComida();
     segundos = 0;
     minutos = 0;
+
+    if ($difficulty === "300" && audioGameplay) {
+      audioGameplay.currentTime = 0 // Reinicia a música
+      audioGameplay.play();
+    }
   }
 
   function lidarComTeclado(e: KeyboardEvent): void {
@@ -179,6 +187,9 @@
     audioMenuHover.volume = currentVolume;
     audioClick = new Audio("/audio/On-Click.mp3");
     audioClick.volume = currentVolume;
+    audioGameplay = new Audio("/audio/Easy-Mode-Gameplay.mp3");
+    audioGameplay.volume = currentVolume *0.5;
+    audioGameplay.loop = true; // Faz o áudio de gameplay repetir
 
     // Segue o subscribe para ambos os sons (Só precisa de um)
     volumeStore.subscribe((newVolume) => {
@@ -186,10 +197,15 @@
       if (audioGameOver) audioGameOver.volume = newVolume;
       if (audioMenuHover) audioMenuHover.volume = newVolume;
       if (audioClick) audioClick.volume = newVolume;
+      if (audioGameplay) audioGameplay.volume = newVolume * 0.5;
     });
 
     food = gerarComida();
     desenhar(ctx);
+
+    if ($difficulty === "300") { // Inicia o áudio de gameplay se a dificuldade for easy
+        audioGameplay.play(); 
+    }
 
     window.addEventListener("keydown", lidarComTeclado);
     interval = setInterval(() => atualizar(ctx), SnakeSpeed);
@@ -197,6 +213,7 @@
     return () => {
       clearInterval(interval);
       window.removeEventListener("keydown", lidarComTeclado);
+      if (audioGameplay) audioGameplay.pause();
     };
   });
 

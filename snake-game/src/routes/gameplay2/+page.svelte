@@ -24,6 +24,7 @@
   let audioGameOver: HTMLAudioElement;
   let audioMenuHover: HTMLAudioElement;
   let audioClick: HTMLAudioElement;
+  let audioGameplay: HTMLAudioElement;
 
   // Sistema de timer
   let segundos: number = 0;
@@ -206,6 +207,7 @@
     });
 
     if (gameOver) {
+      if (audioGameplay) audioGameplay.pause();
       audioGameOver.play();
       alert("Fim de jogo! Alguém perdeu.");
       reiniciarJogo();
@@ -239,6 +241,11 @@
     food = gerarComida();
     segundos = 0;
     minutos = 0;
+
+    if ($difficulty === "300" && audioGameplay) {
+      audioGameplay.currentTime = 0;
+      audioGameplay.play();
+    }
   }
 
   function lidarComTeclado(e: KeyboardEvent) {
@@ -282,15 +289,23 @@
     audioMenuHover.volume = currentVolume;
     audioClick = new Audio('/audio/On-Click.mp3');
     audioClick.volume = currentVolume;
+    audioGameplay = new Audio('audio/Easy-Mode-Gameplay.mp3');
+    audioGameplay.volume = currentVolume * 0.5;
+    audioGameplay.loop = true
 
     volumeStore.subscribe(newVolume => {
       if (audioComida) audioComida.volume = newVolume;
       if (audioGameOver) audioGameOver.volume = newVolume;
       if (audioMenuHover) audioMenuHover.volume = newVolume;
       if (audioClick) audioClick.volume = newVolume;
+      if (audioGameplay) audioGameplay.volume = newVolume * 0.5;
     });
 
     reiniciarJogo();
+
+    if ($difficulty === "300") {
+        audioGameplay.play();
+    }
 
     window.addEventListener("keydown", lidarComTeclado);
     interval = setInterval(() => gameLoop(ctx), SnakeSpeed);
@@ -298,6 +313,7 @@
     return () => {
       clearInterval(interval);
       window.removeEventListener("keydown", lidarComTeclado);
+      if (audioGameplay) audioGameplay.pause();
     };
   });
 </script>
@@ -316,8 +332,11 @@
         background-size: 150px 150px; margin:25px ; border: black solid 10px '></canvas>
 
       <button id="btnRestart"
-        on:click={reiniciarJogo}>Restart</button
-      >
+              on:click={reiniciarJogo}
+              on:mouseenter={playHoverSound} 
+              on:click={playClickSound}>
+          Restart
+      </button>
     </div>
   </div>
 </div>

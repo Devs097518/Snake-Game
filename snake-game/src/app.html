@@ -1,16 +1,35 @@
 <!doctype html>
 <html lang="en">
+	
 	<head>
+		
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/SnakesBite-Logo-Temporaria.png" type="image/png" />
+		<link rel="icon" href="%sveltekit.assets%/SnakesBite-Icon.png" type="image/png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Snake's Bite</title>
+		
 		<style>
 			@import url("https://fonts.googleapis.com/css2?family=Jacquard+12&family=Jersey+15&display=swap");
+
+			/* Cursor Customizado */
+			* {
+				cursor:url('/cursor/Normal Selects.cur'), auto !important;
+			}
+
+			button, a, select, input[type="range"], .clickable {
+				cursor:url('/cursor/Hand.cur'), pointer !important;
+			}
+
+			input[type="text"], textarea {
+				cursor: url('/cursor/Text Select.cur'), text !important;
+			}
+
 		</style>
 		%sveltekit.head%
+	
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
-</html>
+
+	</html>
