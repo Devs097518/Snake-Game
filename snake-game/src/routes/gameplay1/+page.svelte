@@ -44,7 +44,9 @@
   let audioGameOver: HTMLAudioElement; // Declaração do áudio de Game Over (Fim de Jogo)
   let audioMenuHover: HTMLAudioElement; // Declaração do áudio de hover no menu
   let audioClick: HTMLAudioElement; // Declaração do áudio de clique
-  let audioGameplay: HTMLAudioElement; // Declaração do áudio de gameplay
+  let audioGameplay: HTMLAudioElement; // Declaração do áudio de gameplay fácil
+  let audioGameplayMedium: HTMLAudioElement; // Declaração áudio de gameplay médio
+  let audioGameplayHard: HTMLAudioElement; // Declaração áudio de gameplay difícil
 
   function gerarComida(): Posicao {
     return {
@@ -93,6 +95,8 @@
       head.y >= canvas.height
     ) {
       if (audioGameplay) audioGameplay.pause(); // Pausa o áudio de gameplay ao perder
+      if (audioGameplayMedium) audioGameplayMedium.pause(); // Pausa o áudio de gameplay médio ao perder
+      if (audioGameplayHard) audioGameplayHard.pause(); // Pausa o áudio de gameplay difícil ao perder
       audioGameOver.play(); // Linha que chama o som de Game Over
       alert("Fim de jogo!");
       reiniciarJogo();
@@ -104,6 +108,8 @@
     for (let i = 1; i < snake.length; i++) {
       if (head.x === snake[i].x && head.y === snake[i].y) {
         if (audioGameplay) audioGameplay.pause(); // Pausa o áudio de gameplay ao perder
+        if (audioGameplayMedium) audioGameplayMedium.pause(); // Pausa o áudio de gameplay médio ao perder
+        if (audioGameplayHard) audioGameplayHard.pause(); // Pausa o áudio de gameplay difícil ao perder
         audioGameOver.play(); // Linha que chama o som de Game Over
         alert("Você bateu em si mesmo!");
         reiniciarJogo();
@@ -145,8 +151,14 @@
     minutos = 0;
 
     if ($difficulty === "300" && audioGameplay) {
-      audioGameplay.currentTime = 0 // Reinicia a música
+      audioGameplay.currentTime = 0; // Reinicia a música
       audioGameplay.play();
+    } else if ($difficulty === "200" && audioGameplayMedium) {
+      audioGameplayMedium.currentTime = 0; // Reinicia a música
+      audioGameplayMedium.play();
+    } else if ($difficulty === "100" && audioGameplayHard) {
+      audioGameplayHard.currentTime = 0; // Reinicia a música
+      audioGameplayHard.play();
     }
   }
 
@@ -188,8 +200,14 @@
     audioClick = new Audio("/audio/On-Click.mp3");
     audioClick.volume = currentVolume;
     audioGameplay = new Audio("/audio/Easy-Mode-Gameplay.mp3");
-    audioGameplay.volume = currentVolume *0.5;
+    audioGameplay.volume = currentVolume *0.5; // Áudio gameplay fácil
     audioGameplay.loop = true; // Faz o áudio de gameplay repetir
+    audioGameplayMedium = new Audio("/audio/Medium-Mode-Gameplay.mp3"); // Áudio gameplay médio
+    audioGameplayMedium.volume = currentVolume * 0.5;
+    audioGameplayMedium.loop = true; // Faz o áudio de gameplay repetir
+    audioGameplayHard = new Audio("/audio/Hard-Mode.mp3"); // Áudio gameplay difícil
+    audioGameplayHard.volume = currentVolume * 0.5;
+    audioGameplayHard.loop = true; // Faz o áudio de gameplay repetir
 
     // Segue o subscribe para ambos os sons (Só precisa de um)
     volumeStore.subscribe((newVolume) => {
@@ -198,6 +216,8 @@
       if (audioMenuHover) audioMenuHover.volume = newVolume;
       if (audioClick) audioClick.volume = newVolume;
       if (audioGameplay) audioGameplay.volume = newVolume * 0.5;
+      if (audioGameplayMedium) audioGameplayMedium.volume = newVolume * 0.5;
+      if (audioGameplayHard) audioGameplayHard.volume = newVolume * 0.5;
     });
 
     food = gerarComida();
@@ -205,6 +225,10 @@
 
     if ($difficulty === "300") { // Inicia o áudio de gameplay se a dificuldade for easy
         audioGameplay.play(); 
+    } else if ($difficulty === "200") { // Inicia o áudio de gameplay se a dificuldade for medium
+        audioGameplayMedium.play();
+    } else if ($difficulty === "100") { // Inicia o áudio de gameplay se a dificuldade for hard
+        audioGameplayHard.play();
     }
 
     window.addEventListener("keydown", lidarComTeclado);
@@ -214,6 +238,8 @@
       clearInterval(interval);
       window.removeEventListener("keydown", lidarComTeclado);
       if (audioGameplay) audioGameplay.pause();
+      if (audioGameplayMedium) audioGameplayMedium.pause();
+      if (audioGameplayHard) audioGameplayHard.pause();
     };
   });
 
@@ -243,8 +269,12 @@
       ></canvas>
 
       <button id="btnRestart"
-        on:click={reiniciarJogo}>Restart</button
-      >
+              on:click={reiniciarJogo}
+              on:mouseenter={playHoverSound}
+              on:click={playClickSound}>
+          Restart
+      </button>       
+    
     </div>
   </div>
 </div>

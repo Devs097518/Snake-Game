@@ -25,6 +25,8 @@
   let audioMenuHover: HTMLAudioElement;
   let audioClick: HTMLAudioElement;
   let audioGameplay: HTMLAudioElement;
+  let audioGameplayMedium: HTMLAudioElement;
+  let audioGameplayHard: HTMLAudioElement;
 
   // Sistema de timer
   let segundos: number = 0;
@@ -208,6 +210,8 @@
 
     if (gameOver) {
       if (audioGameplay) audioGameplay.pause();
+      if (audioGameplayMedium) audioGameplayMedium.pause();
+      if (audioGameplayHard) audioGameplayHard.pause();
       audioGameOver.play();
       alert("Fim de jogo! Alguém perdeu.");
       reiniciarJogo();
@@ -245,8 +249,14 @@
     if ($difficulty === "300" && audioGameplay) {
       audioGameplay.currentTime = 0;
       audioGameplay.play();
+    } else if ($difficulty === "200" && audioGameplayMedium) {
+    audioGameplayMedium.currentTime = 0;
+    audioGameplayMedium.play();
+    } else if ($difficulty === "100" && audioGameplayHard) {
+      audioGameplayHard.currentTime = 0;
+      audioGameplayHard.play();
     }
-  }
+  } 
 
   function lidarComTeclado(e: KeyboardEvent) {
     const teclaOriginal = e.key;
@@ -289,9 +299,15 @@
     audioMenuHover.volume = currentVolume;
     audioClick = new Audio('/audio/On-Click.mp3');
     audioClick.volume = currentVolume;
-    audioGameplay = new Audio('audio/Easy-Mode-Gameplay.mp3');
+    audioGameplay = new Audio('/audio/Easy-Mode-Gameplay.mp3');
     audioGameplay.volume = currentVolume * 0.5;
-    audioGameplay.loop = true
+    audioGameplay.loop = true; // Faz o áudio de gameplay se repetir
+    audioGameplayMedium = new Audio('/audio/Medium-Mode-Gameplay.mp3');
+    audioGameplayMedium.volume = currentVolume * 0.5;
+    audioGameplayMedium.loop = true; // Faz o áudio de gameplay se repetir
+    audioGameplayHard = new Audio('/audio/Hard-Mode.mp3');
+    audioGameplayHard.volume = currentVolume * 0.5;
+    audioGameplayHard.loop = true; // Faz o áudio de gameplay se repetir
 
     volumeStore.subscribe(newVolume => {
       if (audioComida) audioComida.volume = newVolume;
@@ -299,12 +315,18 @@
       if (audioMenuHover) audioMenuHover.volume = newVolume;
       if (audioClick) audioClick.volume = newVolume;
       if (audioGameplay) audioGameplay.volume = newVolume * 0.5;
+      if (audioGameplayMedium) audioGameplayMedium.volume = newVolume * 0.5;
+      if (audioGameplayHard) audioGameplayHard.volume = newVolume * 0.5;
     });
 
     reiniciarJogo();
 
-    if ($difficulty === "300") {
-        audioGameplay.play();
+    if ($difficulty === "300") { // Easy mode
+        audioGameplay.play();  
+        } else if ($difficulty === "200") { // Medium mode
+          audioGameplayMedium.play();
+        } else if ($difficulty === "100") { // Hard mode
+          audioGameplayHard.play();
     }
 
     window.addEventListener("keydown", lidarComTeclado);
@@ -314,8 +336,11 @@
       clearInterval(interval);
       window.removeEventListener("keydown", lidarComTeclado);
       if (audioGameplay) audioGameplay.pause();
+      if (audioGameplayMedium) audioGameplayMedium.pause();
+      if (audioGameplayHard) audioGameplayHard.pause();
     };
   });
+
 </script>
 
 <div id="container">
