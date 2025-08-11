@@ -63,6 +63,8 @@
 <style>
     :global(:root) {
         background-image: url("/wall.png");
+        color: aliceblue;
+        text-shadow: 3px 3px rgb(0, 0, 0);
     }
 
     #container {
@@ -71,7 +73,7 @@
         align-items: center;
         justify-content: center;
         font-family: "Jacquard 12", system-ui;
-        font-weight: 400;
+        font-weight: 100;
         font-style: normal;
         background-size: cover;
     }

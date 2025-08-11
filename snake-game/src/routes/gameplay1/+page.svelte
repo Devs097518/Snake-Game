@@ -48,12 +48,23 @@
   let audioGameplayMedium: HTMLAudioElement; // Declaração áudio de gameplay médio
   let audioGameplayHard: HTMLAudioElement; // Declaração áudio de gameplay difícil
 
-  function gerarComida(): Posicao {
-    return {
+
+  
+ function gerarComida(): Posicao {
+  let novaComida: Posicao;
+  let colisao: boolean;
+  do {
+    novaComida = {
       x: Math.floor(Math.random() * (canvas.width / box)) * box,
       y: Math.floor(Math.random() * (canvas.height / box)) * box,
     };
-  }
+    // Verifica se a nova comida está em algum segmento da cobra
+    colisao = snake.some(segmento => segmento.x === novaComida.x && segmento.y === novaComida.y);
+  } while (colisao);
+  return novaComida;
+}
+
+
 
   function desenhar(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -153,10 +164,10 @@
     if ($difficulty === "300" && audioGameplay) {
       audioGameplay.currentTime = 0; // Reinicia a música
       audioGameplay.play();
-    } else if ($difficulty === "200" && audioGameplayMedium) {
+    } else if ($difficulty === "100" && audioGameplayMedium) {
       audioGameplayMedium.currentTime = 0; // Reinicia a música
       audioGameplayMedium.play();
-    } else if ($difficulty === "100" && audioGameplayHard) {
+    } else if ($difficulty === "80" && audioGameplayHard) {
       audioGameplayHard.currentTime = 0; // Reinicia a música
       audioGameplayHard.play();
     }
@@ -199,12 +210,15 @@
     audioMenuHover.volume = currentVolume;
     audioClick = new Audio("/audio/On-Click.mp3");
     audioClick.volume = currentVolume;
+
     audioGameplay = new Audio("/audio/Easy-Mode-Gameplay.mp3");
     audioGameplay.volume = currentVolume *0.5; // Áudio gameplay fácil
     audioGameplay.loop = true; // Faz o áudio de gameplay repetir
+    
     audioGameplayMedium = new Audio("/audio/Medium-Mode-Gameplay.mp3"); // Áudio gameplay médio
     audioGameplayMedium.volume = currentVolume * 0.5;
     audioGameplayMedium.loop = true; // Faz o áudio de gameplay repetir
+    
     audioGameplayHard = new Audio("/audio/Hard-Mode.mp3"); // Áudio gameplay difícil
     audioGameplayHard.volume = currentVolume * 0.5;
     audioGameplayHard.loop = true; // Faz o áudio de gameplay repetir
@@ -225,9 +239,9 @@
 
     if ($difficulty === "300") { // Inicia o áudio de gameplay se a dificuldade for easy
         audioGameplay.play(); 
-    } else if ($difficulty === "200") { // Inicia o áudio de gameplay se a dificuldade for medium
+    } else if ($difficulty === "100") { // Inicia o áudio de gameplay se a dificuldade for medium
         audioGameplayMedium.play();
-    } else if ($difficulty === "100") { // Inicia o áudio de gameplay se a dificuldade for hard
+    } else if ($difficulty === "80") { // Inicia o áudio de gameplay se a dificuldade for hard
         audioGameplayHard.play();
     }
 
@@ -325,11 +339,13 @@
   #GameInfo {
     font-size: 2em;
     margin: 0 2em;
+    color: aliceblue;
+   
   }
 
   a {
     text-decoration: none;
-    color: black;
+    color: aliceblue;
     font-family: "Jacquard 12", system-ui;
     font-weight: 400;
     font-style: normal;
@@ -340,6 +356,8 @@
     margin:2em;
     background-color: rgba(255, 0, 0, 0);
     border: 1px solid black;
+    color: aliceblue;
+        text-shadow: 3px 3px rgb(0, 0, 0);
     border-radius: 30px;
     font-family: "Jacquard 12", system-ui;
     font-size: 1.4em;

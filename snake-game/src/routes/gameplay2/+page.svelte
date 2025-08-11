@@ -19,7 +19,7 @@
 
   // Sistema de áudio
   let currentVolume = 0.5;
-  volumeStore.subscribe(value => currentVolume = value);
+  volumeStore.subscribe((value) => (currentVolume = value));
   let audioComida: HTMLAudioElement;
   let audioGameOver: HTMLAudioElement;
   let audioMenuHover: HTMLAudioElement;
@@ -106,11 +106,6 @@
   function desenhar(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Atualiza as cores dos jogadores antes de desenhar
-    //players[0].colorHead = snakeColor1;
-    //players[0].colorBody = snakeColor1;
-    //players[1].colorHead = snakeColor2;
-    //players[1].colorBody = snakeColor2;
 
     // Desenha comida
     ctx.fillStyle = "red";
@@ -125,8 +120,8 @@
     });
 
     // Desenha pontuações
-    ctx.fillStyle = "black";
-    ctx.font = "16px Arial";
+    ctx.fillStyle = "white";
+    ctx.font = "16px Arial White";
     ctx.fillText(`Player 1: ${players[0].score}`, 10, 20);
     ctx.fillText(`Player 2: ${players[1].score}`, 10, 40);
   }
@@ -230,14 +225,20 @@
   setInterval(tempo, 1000);
 
   function reiniciarJogo() {
-    players[0].snake = [{ x: 100, y: 100 }, { x: 90, y: 100 }, { x: 80, y: 100 }
+    players[0].snake = [
+      { x: 100, y: 100 },
+      { x: 90, y: 100 },
+      { x: 80, y: 100 },
     ];
     players[0].direction = "right";
     players[0].nextDirection = "right";
     players[0].score = 0;
 
-    players[1].snake = [{ x: 400, y: 200 }, { x: 410, y: 200 }, { x: 420, y: 200 }
-      ];
+    players[1].snake = [
+      { x: 400, y: 200 },
+      { x: 410, y: 200 },
+      { x: 420, y: 200 },
+    ];
     players[1].direction = "left";
     players[1].nextDirection = "left";
     players[1].score = 0;
@@ -249,14 +250,14 @@
     if ($difficulty === "300" && audioGameplay) {
       audioGameplay.currentTime = 0;
       audioGameplay.play();
-    } else if ($difficulty === "200" && audioGameplayMedium) {
-    audioGameplayMedium.currentTime = 0;
-    audioGameplayMedium.play();
-    } else if ($difficulty === "100" && audioGameplayHard) {
+    } else if ($difficulty === "100" && audioGameplayMedium) {
+      audioGameplayMedium.currentTime = 0;
+      audioGameplayMedium.play();
+    } else if ($difficulty === "80" && audioGameplayHard) {
       audioGameplayHard.currentTime = 0;
       audioGameplayHard.play();
     }
-  } 
+  }
 
   function lidarComTeclado(e: KeyboardEvent) {
     const teclaOriginal = e.key;
@@ -291,25 +292,25 @@
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    audioComida = new Audio('/audio/Eating-Apple.mp3');
+    audioComida = new Audio("/audio/Eating-Apple.mp3");
     audioComida.volume = currentVolume;
-    audioGameOver = new Audio('/audio/Game-Over.mp3');
+    audioGameOver = new Audio("/audio/Game-Over.mp3");
     audioGameOver.volume = currentVolume;
-    audioMenuHover = new Audio('/audio/Menu-Selection.mp3');
+    audioMenuHover = new Audio("/audio/Menu-Selection.mp3");
     audioMenuHover.volume = currentVolume;
-    audioClick = new Audio('/audio/On-Click.mp3');
+    audioClick = new Audio("/audio/On-Click.mp3");
     audioClick.volume = currentVolume;
-    audioGameplay = new Audio('/audio/Easy-Mode-Gameplay.mp3');
+    audioGameplay = new Audio("/audio/Easy-Mode-Gameplay.mp3");
     audioGameplay.volume = currentVolume * 0.5;
     audioGameplay.loop = true; // Faz o áudio de gameplay se repetir
-    audioGameplayMedium = new Audio('/audio/Medium-Mode-Gameplay.mp3');
+    audioGameplayMedium = new Audio("/audio/Medium-Mode-Gameplay.mp3");
     audioGameplayMedium.volume = currentVolume * 0.5;
     audioGameplayMedium.loop = true; // Faz o áudio de gameplay se repetir
-    audioGameplayHard = new Audio('/audio/Hard-Mode.mp3');
+    audioGameplayHard = new Audio("/audio/Hard-Mode.mp3");
     audioGameplayHard.volume = currentVolume * 0.5;
     audioGameplayHard.loop = true; // Faz o áudio de gameplay se repetir
 
-    volumeStore.subscribe(newVolume => {
+    volumeStore.subscribe((newVolume) => {
       if (audioComida) audioComida.volume = newVolume;
       if (audioGameOver) audioGameOver.volume = newVolume;
       if (audioMenuHover) audioMenuHover.volume = newVolume;
@@ -321,12 +322,15 @@
 
     reiniciarJogo();
 
-    if ($difficulty === "300") { // Easy mode
-        audioGameplay.play();  
-        } else if ($difficulty === "200") { // Medium mode
-          audioGameplayMedium.play();
-        } else if ($difficulty === "100") { // Hard mode
-          audioGameplayHard.play();
+    if ($difficulty === "300") {
+      // Easy mode
+      audioGameplay.play();
+    } else if ($difficulty === "100") {
+      // Medium mode
+      audioGameplayMedium.play();
+    } else if ($difficulty === "80") {
+      // Hard mode
+      audioGameplayHard.play();
     }
 
     window.addEventListener("keydown", lidarComTeclado);
@@ -340,35 +344,43 @@
       if (audioGameplayHard) audioGameplayHard.pause();
     };
   });
-
 </script>
 
 <div id="container">
   <div id="TelaDoGame">
     <div id="tela4">
       <div style="display: flex;">
-        <button id="Da4Para1" on:mouseenter={playHoverSound} on:click={playClickSound}>
+        <button
+          id="Da4Para1"
+          on:mouseenter={playHoverSound}
+          on:click={playClickSound}
+        >
           <a href="/"> Back </a>
         </button>
         <p id="GameInfo">Time: {minutos}:{segundos}</p>
       </div>
 
-      <canvas bind:this={canvas} width="500" height="300" style='background-image: url(podzol-dirt.png) ; background-repeat: repeat;
-        background-size: 150px 150px; margin:25px ; border: black solid 10px '></canvas>
+      <canvas
+        bind:this={canvas}
+        width="500"
+        height="300"
+        style="background-image: url(podzol-dirt.png) ; background-repeat: repeat;
+        background-size: 150px 150px; margin:25px ; border: black solid 10px "
+      ></canvas>
 
-      <button id="btnRestart"
-              on:click={reiniciarJogo}
-              on:mouseenter={playHoverSound} 
-              on:click={playClickSound}>
-          Restart
+      <button
+        id="btnRestart"
+        on:click={reiniciarJogo}
+        on:mouseenter={playHoverSound}
+        on:click={playClickSound}
+      >
+        Restart
       </button>
     </div>
   </div>
 </div>
 
 <style>
-
-
   :global(:root) {
     background-image: url("wall.png");
   }
@@ -420,22 +432,27 @@
   }
 
   #GameInfo {
+    color: aliceblue;
+    text-shadow: 3px 3px rgb(0, 0, 0);
     font-size: 2em;
     margin: 0 2em;
     font-family: "Jacquard 12", system-ui;
   }
 
   a {
-    
-    color: rgb(0, 0, 0);
+    color: aliceblue;
+    text-shadow: 3px 3px rgb(0, 0, 0);
     font-family: "Jacquard 12", system-ui;
     font-weight: 400;
+    font-size: 1.5em;
     font-style: normal;
   }
 
-   #btnRestart{
-    text-decoration:none; 
-    margin:2em;
+  #btnRestart {
+    text-decoration: none;
+    margin: 2em;
+    color: aliceblue;
+    text-shadow: 3px 3px rgb(0, 0, 0);
     background-color: rgba(255, 0, 0, 0);
     border: 1px solid black;
     border-radius: 30px;

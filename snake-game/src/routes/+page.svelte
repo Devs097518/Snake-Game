@@ -124,7 +124,7 @@
         background-color: rgba(240, 248, 255, 0);
         border: none;
         -webkit-text-fill-color: rgb(241, 241, 241);
-        text-shadow: 2px 2px 4px rgb(0, 0, 0);
+        text-shadow: 5px 5px rgb(82, 78, 78);
         cursor: pointer;
     }
 
