@@ -269,7 +269,9 @@
           on:mouseenter={playHoverSound}
           on:click={playClickSound}
         >
-          <a href="/"> Back </a>
+          <a href="/"> 
+            <img src="/botao-voltar.png" alt="Voltar" style= "width: 40px; height: 40px;" /> 
+          </a>
         </button>
         <p id="GameInfo">Score:{score} | Time: {minutos}:{segundos}</p>
       </div>

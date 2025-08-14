@@ -3,21 +3,45 @@
     import { volumeStore } from "$lib/stores/stores";
     import { onMount } from "svelte";
 
+    // Declarei o tipo global para evitar erros no TypeScript
+    declare global {
+        interface Window {
+            globalBackgroundMusic?: HTMLAudioElement;
+        }
+    }
+
     let currentVolume = 0.5;
     volumeStore.subscribe((value) => (currentVolume = value));
     let audioMenuHover: HTMLAudioElement;
     let audioClick: HTMLAudioElement;
 
+    // Criar a música tema globalmente
+    let backgroundMusic: HTMLAudioElement;
+    if (typeof window !== 'undefined') {
+        if (!window.globalBackgroundMusic) {
+            window.globalBackgroundMusic = new Audio("/audio/Main-Theme.mp3");
+            window.globalBackgroundMusic.loop = true; // Define a música para tocar em loop
+            window.globalBackgroundMusic.volume = currentVolume;
+        }
+        backgroundMusic = window.globalBackgroundMusic;
+    }
+
     onMount(() => {
         audioMenuHover = new Audio("/audio/Menu-Selection.mp3");
         audioMenuHover.volume = currentVolume;
         audioClick = new Audio("/audio/On-Click.mp3");
-        audioClick.volume = currentVolume;
+        audioClick.volume = currentVolume; 
+
+        // Só toca se não estiver tocando (Música Tema)
+        if (backgroundMusic && backgroundMusic.paused) {
+            backgroundMusic.play();
+        }
 
         // Controla o volume pelas opções aqui:
         volumeStore.subscribe((newVolume) => {
             if (audioMenuHover) audioMenuHover.volume = newVolume;
             if (audioClick) audioClick.volume = newVolume;
+            if (backgroundMusic) backgroundMusic.volume = newVolume; // Atualiza o volume da música tema
         });
     });
 
@@ -34,6 +58,13 @@
             audioClick.play();
         }
     }
+    function handleStartGame() {
+        playClickSound();
+        if (backgroundMusic) {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+        }
+    }
 </script>
 
 <div id="container">
@@ -44,7 +75,7 @@
                 id="btnGame"
                 class="textoMenu"
                 on:mouseenter={playHoverSound}
-                on:click={playClickSound}
+                on:click={handleStartGame}
             >
                 <a href={$players}>Start</a>
             </button>

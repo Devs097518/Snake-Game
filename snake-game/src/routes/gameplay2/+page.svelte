@@ -355,7 +355,10 @@
           on:mouseenter={playHoverSound}
           on:click={playClickSound}
         >
-          <a href="/"> Back </a>
+          <a href="/">
+          <!--Adicionei o mesmo botão usado na tela de opções e de credits para padronização-->
+            <img src="/botao-voltar.png" alt="Voltar" style= "width: 40px; height: 40px;" />
+          </a>
         </button>
         <p id="GameInfo">Time: {minutos}:{segundos}</p>
       </div>
