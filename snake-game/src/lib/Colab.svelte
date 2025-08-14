@@ -1,19 +1,22 @@
 <script lang="ts">
     export let nome:string = '';
+    export let foto:string = '';
 </script>
 
 <div class="colab">
     <div id="colab-caixa">
-        <img src="perfil-exemplo.png" alt="">
+        <img src={foto} alt="">
         <p>{nome}</p>
     </div>
 </div>
 
 <style>
     img {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
         margin: 0 30px;
+        border: 4px solid black;
     }
     .colab {
         display: flex;

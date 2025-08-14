@@ -50,11 +50,11 @@
               <h2 style="font-size:3em">Developers :</h2>  
             </div>
             
-            <Colab nome="Alan Santos" />
-            <Colab nome="Dayvson Lacerda" />
-            <Colab nome="Luhan Felipe" />
-            <Colab nome="Luísa Vitória" />
-            <Colab nome="Yuri Calixto" />
+            <Colab nome="Alan Santos" foto="Alan.png"/>
+            <Colab nome="Dayvson Lacerda" foto="Dayvson.png"/>
+            <Colab nome="Luhan Felipe" foto="Luhan.png"/>
+            <Colab nome="Luísa Vitória" foto="Luisa.png" />
+            <Colab nome="Yuri Calixto" foto="Yuri.png"/>
         </div>
     
     </div>
